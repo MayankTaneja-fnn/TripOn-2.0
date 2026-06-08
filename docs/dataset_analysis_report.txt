@@ -1,0 +1,253 @@
+=== DATASET ANALYSIS REPORT (STREAMING MODE) ===
+
+============================================================
+Dataset: Datafiniti_Main (archive/Hotel Reviews.csv)
+============================================================
+Number of rows: 10000
+Number of columns: 25
+
+Columns and Missing Values:
+  - ﻿id: 0 nulls (0.00%)
+  - dateAdded: 0 nulls (0.00%)
+  - dateUpdated: 0 nulls (0.00%)
+  - address: 0 nulls (0.00%)
+  - categories: 0 nulls (0.00%)
+  - primaryCategories: 0 nulls (0.00%)
+  - city: 0 nulls (0.00%)
+  - country: 0 nulls (0.00%)
+  - keys: 0 nulls (0.00%)
+  - latitude: 0 nulls (0.00%)
+  - longitude: 0 nulls (0.00%)
+  - name: 0 nulls (0.00%)
+  - postalCode: 0 nulls (0.00%)
+  - province: 0 nulls (0.00%)
+  - reviews.date: 0 nulls (0.00%)
+  - reviews.dateSeen: 0 nulls (0.00%)
+  - reviews.rating: 0 nulls (0.00%)
+  - reviews.sourceURLs: 0 nulls (0.00%)
+  - reviews.text: 0 nulls (0.00%)
+  - reviews.title: 1 nulls (0.01%)
+  - reviews.userCity: 5836 nulls (58.36%)
+  - reviews.userProvince: 7295 nulls (72.95%)
+  - reviews.username: 0 nulls (0.00%)
+  - sourceURLs: 0 nulls (0.00%)
+  - websites: 0 nulls (0.00%)
+
+Duplicate reviews based on column 'reviews.date': 6812 (68.12%)
+
+Rating columns metrics:
+  - Column: reviews.rating
+    Unique values (up to 15): ['2.5', '3', '4.8', '1.45', '1.9', '1', '4', '3.95', '4.25', '4.5', '3.35', '4.75', '2.7', '3.75', '3.45']
+    Min rating: 1.0, Max rating: 5.0
+
+Sample Row (First Row):
+{'\ufeffid': 'AVwc252WIN2L1WUfpqLP', 'dateAdded': '2016-10-30T21:42:42Z', 'dateUpdated': '2018-09-10T21:06:27Z', 'address': '5921 Valencia Cir', 'categories': 'Hotels,Hotels and motels,Hotel and motel reservations,Resorts,Resort,Hotel', 'primaryCategories': 'Accommodation & Food Services', 'city': 'Rancho Santa Fe', 'country': 'US', 'keys': 'us/ca/ranchosantafe/5921valenciacir/359754519', 'latitude': '32.990959', 'longitude': '-117.186136', 'name': 'Rancho Valencia Resort Spa', 'postalCode': '92067', 'province': 'CA', 'reviews.date': '2013-11-14T00:00:00Z', 'reviews.dateSeen': '2016-08-03T00:00:00Z,2016-07-26T00:00:00Z,2016-08-02T00:00:00Z,2016-07-17T00:00:00Z,2016-08-27T00:00:00Z,2016-08-23T00:00:00Z,2016-08-09T00:00:00Z,2016-11-07T00:00:00Z,2016-08-26T00:00:00Z', 'reviews.rating': '5', 'reviews.sourceURLs': 'https://www.hotels.com/hotel/125419/reviews%20/', 'reviews.text': 'Our experience at Rancho Valencia was absolutely perfect from beginning to end!!!! We felt special and very happy during our stayed. I would come back in a heart beat!!!', 'reviews.title': 'Best romantic vacation ever!!!!', 'reviews.userCity': '', 'reviews.userProvince': '', 'reviews.username': 'Paula', 'sourceURLs': 'http://www.hotels.com/ho125419/%25252525253Flocale%25252525253Den_US%252525252526pos%25252525253DHCOM_US,http://www.yellowbook.com/profile/rancho-valencia-resort-and-spa_1895174051.html,https://www.hotels.com/hotel/125419/reviews%20/,https://foursquare.com/v/rancho-valencia-resort--spa/4aaedb79f964a5208f6320e3,http://www.gayot.com/Hotels/Select-Your-City/United-States/California/San-Diego/Rancho-Valencia-Resort-Spa-Rancho-Santa-Fe-SDHOT02319-02', 'websites': 'http://www.ranchovalencia.com'}
+
+
+============================================================
+Dataset: 7282_1 (archive (1)/7282_1.csv)
+============================================================
+Number of rows: 35912
+Number of columns: 19
+
+Columns and Missing Values:
+  - address: 0 nulls (0.00%)
+  - categories: 0 nulls (0.00%)
+  - city: 0 nulls (0.00%)
+  - country: 0 nulls (0.00%)
+  - latitude: 86 nulls (0.24%)
+  - longitude: 86 nulls (0.24%)
+  - name: 0 nulls (0.00%)
+  - postalCode: 55 nulls (0.15%)
+  - province: 0 nulls (0.00%)
+  - reviews.date: 259 nulls (0.72%)
+  - reviews.dateAdded: 0 nulls (0.00%)
+  - reviews.doRecommend: 35912 nulls (100.00%)
+  - reviews.id: 35912 nulls (100.00%)
+  - reviews.rating: 862 nulls (2.40%)
+  - reviews.text: 23 nulls (0.06%)
+  - reviews.title: 1626 nulls (4.53%)
+  - reviews.userCity: 19649 nulls (54.71%)
+  - reviews.username: 43 nulls (0.12%)
+  - reviews.userProvince: 18394 nulls (51.22%)
+
+Duplicate reviews based on column 'reviews.date': 32644 (90.90%)
+
+Rating columns metrics:
+  - Column: reviews.rating
+    Unique values (up to 15): ['2.5', '3', '4.8', '5.4', '1', '4', '4.1', '3.1', '4.2', '4.7', '7.5', '9.5', '0', '9.2', '4.5']
+    Min rating: 0.0, Max rating: 10.0
+
+Sample Row (First Row):
+{'address': 'Riviera San Nicol 11/a', 'categories': 'Hotels', 'city': 'Mableton', 'country': 'US', 'latitude': '45.421611', 'longitude': '12.376187', 'name': 'Hotel Russo Palace', 'postalCode': '30126', 'province': 'GA', 'reviews.date': '2013-09-22T00:00:00Z', 'reviews.dateAdded': '2016-10-24T00:00:25Z', 'reviews.doRecommend': '', 'reviews.id': '', 'reviews.rating': '4', 'reviews.text': "Pleasant 10 min walk along the sea front to the Water Bus. restaurants etc. Hotel was comfortable breakfast was good - quite a variety. Room aircon didn't work very well. Take mosquito repelant!", 'reviews.title': 'Good location away from the crouds', 'reviews.userCity': '', 'reviews.username': 'Russ (kent)', 'reviews.userProvince': ''}
+
+
+============================================================
+Dataset: Datafiniti_Jun19 (archive (1)/Datafiniti_Hotel_Reviews_Jun19.csv)
+============================================================
+Number of rows: 10000
+Number of columns: 26
+
+Columns and Missing Values:
+  - id: 0 nulls (0.00%)
+  - dateAdded: 0 nulls (0.00%)
+  - dateUpdated: 0 nulls (0.00%)
+  - address: 0 nulls (0.00%)
+  - categories: 0 nulls (0.00%)
+  - primaryCategories: 0 nulls (0.00%)
+  - city: 0 nulls (0.00%)
+  - country: 0 nulls (0.00%)
+  - keys: 0 nulls (0.00%)
+  - latitude: 0 nulls (0.00%)
+  - longitude: 0 nulls (0.00%)
+  - name: 0 nulls (0.00%)
+  - postalCode: 0 nulls (0.00%)
+  - province: 0 nulls (0.00%)
+  - reviews.date: 0 nulls (0.00%)
+  - reviews.dateAdded: 10000 nulls (100.00%)
+  - reviews.dateSeen: 0 nulls (0.00%)
+  - reviews.rating: 0 nulls (0.00%)
+  - reviews.sourceURLs: 0 nulls (0.00%)
+  - reviews.text: 0 nulls (0.00%)
+  - reviews.title: 0 nulls (0.00%)
+  - reviews.userCity: 0 nulls (0.00%)
+  - reviews.userProvince: 2 nulls (0.02%)
+  - reviews.username: 0 nulls (0.00%)
+  - sourceURLs: 0 nulls (0.00%)
+  - websites: 0 nulls (0.00%)
+
+Duplicate reviews based on column 'reviews.date': 6630 (66.30%)
+
+Rating columns metrics:
+  - Column: reviews.rating
+    Unique values (up to 15): ['3', '1', '4', '5', '2']
+    Min rating: 1.0, Max rating: 5.0
+
+Sample Row (First Row):
+{'id': 'AWE2FvX5RxPSIh2RscTK', 'dateAdded': '2018-01-18T18:43:12Z', 'dateUpdated': '2019-05-20T23:55:47Z', 'address': '5620 Calle Real', 'categories': 'Hotels,Hotels and motels,Hotel and motel mgmt.,Lodging,Hotels Motels,Hotel', 'primaryCategories': 'Accommodation & Food Services', 'city': 'Goleta', 'country': 'US', 'keys': 'us/ca/goleta/5620callereal/-1127060008', 'latitude': '34.44178', 'longitude': '-119.81979', 'name': 'Best Western Plus South Coast Inn', 'postalCode': '93117', 'province': 'CA', 'reviews.date': '2018-01-01T00:00:00.000Z', 'reviews.dateAdded': '', 'reviews.dateSeen': '2018-01-03T00:00:00Z', 'reviews.rating': '3', 'reviews.sourceURLs': 'https://www.tripadvisor.com/Hotel_Review-g32438-d81780-Reviews-Best_Western_Plus_South_Coast_Inn-Goleta_California.html', 'reviews.text': 'This hotel was nice and quiet. Did not know, there was train track near by. But it was only few train passed during our stay. Best Western changed hotel classification. The Plus category are not the same as before.', 'reviews.title': 'Best Western Plus Hotel', 'reviews.userCity': 'San Jose', 'reviews.userProvince': 'UnitedStates', 'reviews.username': 'tatsurok2018', 'sourceURLs': 'https://www.tripadvisor.com/Hotel_Review-g32438-d81780-Reviews-Best_Western_Plus_South_Coast_Inn-Goleta_California.html,https://www.yellowpages.com/goleta-ca/mip/best-western-plus-south-coast-inn-21941589,http://www.citysearch.com/profile/717767/goleta_ca/best_western.html,https://www.booking.com/hotel/us/south-coast-inn.html;srpvid=982b7e4c3f0d052c;srepoch=1551722264;hpos=13;hapos=13;dest_id=20015794;dest_type=city;sr_order=popularity?from=searchresults', 'websites': 'https://www.bestwestern.com/en_US/book/hotel-rooms.05521.html?iata=00171890andssob=BLBWI0003Gandcid=BLBWI0003G:yext:website:05521,https://www.bestwestern.com/en_US/book/hotel-rooms.05521.html?iata=00171890&ssob=BLBWI0003G&cid=BLBWI0003G:yext:website:05521'}
+
+
+============================================================
+Dataset: Datafiniti_Standard (archive (1)/Datafiniti_Hotel_Reviews.csv)
+============================================================
+Number of rows: 10000
+Number of columns: 25
+
+Columns and Missing Values:
+  - ﻿id: 0 nulls (0.00%)
+  - dateAdded: 0 nulls (0.00%)
+  - dateUpdated: 0 nulls (0.00%)
+  - address: 0 nulls (0.00%)
+  - categories: 0 nulls (0.00%)
+  - primaryCategories: 0 nulls (0.00%)
+  - city: 0 nulls (0.00%)
+  - country: 0 nulls (0.00%)
+  - keys: 0 nulls (0.00%)
+  - latitude: 0 nulls (0.00%)
+  - longitude: 0 nulls (0.00%)
+  - name: 0 nulls (0.00%)
+  - postalCode: 0 nulls (0.00%)
+  - province: 0 nulls (0.00%)
+  - reviews.date: 0 nulls (0.00%)
+  - reviews.dateSeen: 0 nulls (0.00%)
+  - reviews.rating: 0 nulls (0.00%)
+  - reviews.sourceURLs: 0 nulls (0.00%)
+  - reviews.text: 0 nulls (0.00%)
+  - reviews.title: 1 nulls (0.01%)
+  - reviews.userCity: 5836 nulls (58.36%)
+  - reviews.userProvince: 7295 nulls (72.95%)
+  - reviews.username: 0 nulls (0.00%)
+  - sourceURLs: 0 nulls (0.00%)
+  - websites: 0 nulls (0.00%)
+
+Duplicate reviews based on column 'reviews.date': 6812 (68.12%)
+
+Rating columns metrics:
+  - Column: reviews.rating
+    Unique values (up to 15): ['2.5', '3', '4.8', '1.45', '1.9', '1', '4', '3.95', '4.25', '4.5', '3.35', '4.75', '2.7', '3.75', '3.45']
+    Min rating: 1.0, Max rating: 5.0
+
+Sample Row (First Row):
+{'\ufeffid': 'AVwc252WIN2L1WUfpqLP', 'dateAdded': '2016-10-30T21:42:42Z', 'dateUpdated': '2018-09-10T21:06:27Z', 'address': '5921 Valencia Cir', 'categories': 'Hotels,Hotels and motels,Hotel and motel reservations,Resorts,Resort,Hotel', 'primaryCategories': 'Accommodation & Food Services', 'city': 'Rancho Santa Fe', 'country': 'US', 'keys': 'us/ca/ranchosantafe/5921valenciacir/359754519', 'latitude': '32.990959', 'longitude': '-117.186136', 'name': 'Rancho Valencia Resort Spa', 'postalCode': '92067', 'province': 'CA', 'reviews.date': '2013-11-14T00:00:00Z', 'reviews.dateSeen': '2016-08-03T00:00:00Z,2016-07-26T00:00:00Z,2016-08-02T00:00:00Z,2016-07-17T00:00:00Z,2016-08-27T00:00:00Z,2016-08-23T00:00:00Z,2016-08-09T00:00:00Z,2016-11-07T00:00:00Z,2016-08-26T00:00:00Z', 'reviews.rating': '5', 'reviews.sourceURLs': 'https://www.hotels.com/hotel/125419/reviews%20/', 'reviews.text': 'Our experience at Rancho Valencia was absolutely perfect from beginning to end!!!! We felt special and very happy during our stayed. I would come back in a heart beat!!!', 'reviews.title': 'Best romantic vacation ever!!!!', 'reviews.userCity': '', 'reviews.userProvince': '', 'reviews.username': 'Paula', 'sourceURLs': 'http://www.hotels.com/ho125419/%25252525253Flocale%25252525253Den_US%252525252526pos%25252525253DHCOM_US,http://www.yellowbook.com/profile/rancho-valencia-resort-and-spa_1895174051.html,https://www.hotels.com/hotel/125419/reviews%20/,https://foursquare.com/v/rancho-valencia-resort--spa/4aaedb79f964a5208f6320e3,http://www.gayot.com/Hotels/Select-Your-City/United-States/California/San-Diego/Rancho-Valencia-Resort-Spa-Rancho-Santa-Fe-SDHOT02319-02', 'websites': 'http://www.ranchovalencia.com'}
+
+
+============================================================
+Dataset: TripAdvisor (archive (2)/tripadvisor_hotel_reviews.csv)
+============================================================
+Number of rows: 20491
+Number of columns: 2
+
+Columns and Missing Values:
+  - Review: 0 nulls (0.00%)
+  - Rating: 0 nulls (0.00%)
+
+Duplicate reviews based on column 'Review': 0 (0.00%)
+
+Rating columns metrics:
+  - Column: Rating
+    Unique values (up to 15): ['3', '1', '4', '5', '2']
+    Min rating: 1.0, Max rating: 5.0
+
+Sample Row (First Row):
+{'Review': 'nice hotel expensive parking got good deal stay hotel anniversary, arrived late evening took advice previous reviews did valet parking, check quick easy, little disappointed non-existent view room room clean nice size, bed comfortable woke stiff neck high pillows, not soundproof like heard music room night morning loud bangs doors opening closing hear people talking hallway, maybe just noisy neighbors, aveda bath products nice, did not goldfish stay nice touch taken advantage staying longer, location great walking distance shopping, overall nice experience having pay 40 parking night,  ', 'Rating': '4'}
+
+
+============================================================
+Dataset: General_Hotel_Reviews (archive (3)/hotel_reviews.csv)
+============================================================
+Number of rows: 7001
+Number of columns: 7
+
+Columns and Missing Values:
+  - Index: 0 nulls (0.00%)
+  - Name: 0 nulls (0.00%)
+  - Area: 0 nulls (0.00%)
+  - Review_Date: 0 nulls (0.00%)
+  - Rating_attribute: 0 nulls (0.00%)
+  - Rating(Out of 10): 0 nulls (0.00%)
+  - Review_Text: 2 nulls (0.03%)
+
+Duplicate reviews based on column 'Review_Date': 6965 (99.49%)
+
+Rating columns metrics:
+  - Column: Rating_attribute
+    Unique values (up to 15): ['Overpaid', 'good but can be better', 'Good for Short Stays', 'Very good value, clean rooms and good service in a great central location.', 'Best service', 'Efficient and comfortable hotel close to Delhi airport', 'Staff is very friendly', 'Good rooms', 'nice', 'I loved my stay here as I felt comfortable and at home with all the facilities they had to offer.', 'HOTEL is quite good but it can be better', 'Decent but can be improved esp. on facilities', 'hotel staff and receptionist was good and sporting', 'No body stay', 'Spacious room']
+    Min rating: 3.0, Max rating: 10.0
+  - Column: Rating(Out of 10)
+    Unique values (up to 15): ['2.5', '3', '9', '8', '10', '1', '4', '5', '6', '7.9', '7', '2']
+    Min rating: 1.0, Max rating: 10.0
+
+Sample Row (First Row):
+{'Index': '0', 'Name': 'Hotel The Pearl', 'Area': 'Paharganj, New Delhi', 'Review_Date': 'Jul-23', 'Rating_attribute': 'Best budget friendly hotel', 'Rating(Out of 10)': '9', 'Review_Text': "Hotel the pearl is perfect place to stay in Delhi Paharganj. whole staff are very helpful, informative. Rooms are clean and comfortable. The hotel's location was very convenient, and we had a truly wonderful stay.. Most recommended.."}
+
+
+============================================================
+Dataset: La_Veranda (archive (4)/La_Veranda_Reviews-2023-01-16.csv)
+============================================================
+Number of rows: 1523
+Number of columns: 11
+
+Columns and Missing Values:
+  - Title: 2 nulls (0.13%)
+  - PositiveReview: 748 nulls (49.11%)
+  - NegativeReview: 1090 nulls (71.57%)
+  - Score: 0 nulls (0.00%)
+  - GuestName: 0 nulls (0.00%)
+  - GuestCountry: 0 nulls (0.00%)
+  - RoomType: 63 nulls (4.14%)
+  - NumberOfNights: 0 nulls (0.00%)
+  - VisitDate: 0 nulls (0.00%)
+  - GroupType: 0 nulls (0.00%)
+  - PropertyResponse: 1400 nulls (91.92%)
+
+Duplicate reviews based on column 'PositiveReview': 7 (0.46%)
+
+Rating columns metrics:
+  - Column: Score
+    Unique values (up to 15): ['7.0', '9.0', '9.6', '5.0', '8.0', '4.0', '6.0', '3.0', '1.0', '7.9', '10.0', '2.0']
+    Min rating: 1.0, Max rating: 10.0
+
+Sample Row (First Row):
+{'Title': 'Wonderful place to stay.', 'PositiveReview': 'New, comfortable apartments, close to the airport, to very clean beach.\nStaff is extremely helpful and easy to communicate with \nTasty food on the first floor, comfortable restaurant for both cozy evenings and calm work to escape the heat in the midday', 'NegativeReview': 'Nothing at all.', 'Score': '10.0', 'GuestName': 'Olga', 'GuestCountry': 'Norway', 'RoomType': 'Budget Twin Room', 'NumberOfNights': '1 night', 'VisitDate': 'June 2022', 'GroupType': 'Solo traveler', 'PropertyResponse': ''}
+
+
