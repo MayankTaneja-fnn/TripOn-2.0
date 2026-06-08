@@ -1,55 +1,109 @@
-# Detailed Project Progress: TripOn 2.0
+# TripOn 2.0: Technical Architecture & Progress Documentation
 
-## Current Status: Phase 2 Complete (Intelligence Layer Hardened)
-**Last Update:** June 8, 2026
-
----
-
-## 1. Phase 1: Data Foundation
-**Objective:** Maintain a clean, machine-ready data lake.
-
-- **Achievement:** Successfully unified all hotel data, including nationwide coverage across 36 Indian states and UTs.
-- **Engineering Highlights:**
-    - **Schema Unification:** Established a strict internal schema for all hotel data.
-    - **Rating Normalization:** Calibrated all reviews to a standard float scale (1.0 - 5.0).
-    - **Nationwide Coverage:** Maintained a baseline of at least 5 hotels per Indian state/UT.
-- **Artifacts:** `data/datasets/master_hotel_data.csv`, `data/datasets/synthetic_indian_hotel_data.csv`.
+## Glossary of Terms
+*   **ABSA (Aspect-Based Sentiment Analysis):** A technique that breaks down a review to understand sentiment about specific features (e.g., "The hotel was great, but the Wifi was slow" -> Positive about Hotel, Negative about Wifi).
+*   **CTE (Common Table Expression):** A temporary, named result set in a database query, used to make complex SQL queries easier to write and read.
+*   **JSONB:** A format for storing data in a database that allows for flexible, nested structures (like a dictionary of aspect scores).
+*   **NLP (Natural Language Processing):** The field of AI that allows computers to read, interpret, and understand human language.
+*   **RAG (Retrieval-Augmented Generation):** An AI technique that combines a search engine with a language model to provide answers based on specific, trusted data sources.
+*   **Schema:** The "blueprint" of a database, defining the tables and the relationships between them.
 
 ---
 
-## 2. Phase 2: Review Intelligence & Database Layer
-**Objective:** Deep intelligence on hotel performance.
-
-### A. Relational Database Implementation (Supabase)
-- **Schema Design:** A normalized relational model optimized for query performance and data integrity.
-    - `locations`: 2,276 unique regional indices.
-    - `hotels`: 4,835 master profiles with pre-computed metrics.
-    - `reviews`: 148,844 entries linked via foreign keys.
-- **Migration Optimization:** Implemented bulk insertion for high-speed ingestion and strict enforcement of relational constraints.
-
-### B. Aspect-Based Sentiment Analysis (ABSA)
-- **Methodology:** High-speed Rule-Based Lexical Engine using `vaderSentiment`.
-- **Dimensions:** Cleanliness, Service, Food, Wifi, Location, Noise, Safety.
-- **Impact:** Converts subjective text into granular, quantitative aspect scores (1-10 scale).
-
-### C. The Ranking Engine & Trust Score
-- **Objective:** Consolidate opinions into actionable scores for 4,835 hotels.
-- **Algorithm:**
-    - **Rating Avg:** Standard 1-5 mean.
-    - **Aspect Scores:** Mean sentiment (1-10) for all dimensions.
-    - **Trust Score:** Calculated via SQL CTE to reward consistency across categories.
+## 1. Project Overview & Evolution
+TripOn 2.0 is an intelligent hotel ranking and recommendation engine. The project has evolved from a city-specific prototype (Delhi) to a nationwide platform covering all 36 Indian states and union territories.
 
 ---
 
-## 3. Current Technical Metrics
+## 2. Data Foundation & Normalization
+
+### A. Data Consolidation
+The project is built upon a consolidated, nationwide dataset covering all 36 Indian states and union territories.
+- **Data Source:** A combination of primary hotel datasets and high-quality synthetic data generated to ensure complete geographical representation.
+- **Consolidation Script:** `scripts/consolidate_data.py` (Library: `pandas`).
+- **Mapping:** Heterogeneous column names from original data sources were mapped to a unified internal schema: `hotel_name`, `review_text`, `rating`, `city`, `latitude`, `longitude`, `province`, `country`, `data_source`.
+- **Rating Standardization:** All ratings (e.g., 10-pt, 5-pt) were converted to a uniform 1.0 - 5.0 scale.
+- **Deduplication:** Aggressive removal of duplicates based on `review_text` + `date` to ensure a clean, high-quality data lake.
+
+### C. Nationwide Expansion
+- **Script:** `scripts/generate_synthetic_states.py` (Library: `pandas`, `numpy`).
+- **Rationale:** To ensure nationwide representation, 5 synthetic hotels were generated for every Indian state/UT previously missing from the data.
+- **Alignment:** Synthetic records strictly match the unified schema.
+
+---
+
+## 3. Database Architecture (Supabase/PostgreSQL)
+
+### Full Schema Definition
+```sql
+-- 1. Locations Table: Stores unique geographical entities.
+CREATE TABLE locations (
+    id SERIAL PRIMARY KEY,
+    city VARCHAR(255) NOT NULL,
+    province VARCHAR(255),
+    country VARCHAR(100),
+    UNIQUE(city, province, country)
+);
+
+-- 2. Hotels Table: Master profiles with pre-computed intelligence.
+CREATE TABLE hotels (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    location_id INTEGER REFERENCES locations(id),
+    address TEXT,
+    price_level VARCHAR(10),
+    rating_avg DECIMAL(3, 2), -- Aggregated mean rating (1.0-5.0)
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
+    -- Aspect Scores (Calculated from reviews, 1.0-10.0):
+    trust_score DECIMAL(3, 2),
+    cleanliness_score DECIMAL(3, 2),
+    service_score DECIMAL(3, 2),
+    wifi_score DECIMAL(3, 2),
+    food_score DECIMAL(3, 2),
+    location_score DECIMAL(3, 2),
+    noise_score DECIMAL(3, 2),
+    safety_score DECIMAL(3, 2),
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Reviews Table: Granular feedback.
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    hotel_id INTEGER REFERENCES hotels(id),
+    review_text TEXT NOT NULL,
+    rating DECIMAL(3, 1),
+    review_date TIMESTAMP,
+    source VARCHAR(100),
+    sentiment_json JSONB, -- Stores granular aspect-based scores (1-10)
+    is_processed BOOLEAN DEFAULT FALSE
+);
+```
+
+---
+
+## 4. Review Intelligence Engine
+
+### A. Aspect-Based Sentiment Analysis (ABSA)
+- **Model Choice:** `vaderSentiment`.
+- **Rationale:** High-performance, rule-based NLP was required to process >140k reviews within hardware constraints. Deep learning alternatives (BART-Large) were tested but failed due to memory limitations.
+- **Processing Logic (`scripts/extract_aspects.py`):**
+    1. The script iterates through the `reviews` table.
+    2. Review text is tokenized into sentences.
+    3. Each sentence is mapped against keyword dictionaries for 7 aspects (Cleanliness, Service, Food, Wifi, Location, Noise, Safety).
+    4. VADER calculates polarity scores per sentence, which are aggregated into a `sentiment_json` blob per review.
+
+### B. Ranking & Trust Engine (`scripts/aggregate_scores.py`)
+- **Methodology:** SQL Common Table Expressions (CTEs) execute the final aggregation.
+- **Formula:** 
+    - **Aspect Average:** Mean of sentiment scores for all processed reviews for a hotel.
+    - **Trust Score:** `(Avg Rating + (Avg Aspect Scores / 2)) / 2`. This formula balances raw user ratings with consistent performance across defined dimensions.
+- **Output:** Populates the `hotels` table with calculated scores, enabling real-time filtering and ranking.
+
+---
+
+## 5. Current Metrics
 - **Total Processed Reviews:** 148,844
 - **Unique Hotels Indexed:** 4,835
 - **Unique Locations:** 2,276
-- **Database Latency:** Average query response < 20ms.
-
----
-
-## 4. Upcoming: Phase 3 (AI Assistant & RAG)
-- **Vector Search:** Implementing `pgvector` for semantic review search.
-- **Reasoning Engine:** Building recommendation explainability.
-- **Frontend Integration:** Connecting backend intelligence to a user-facing chat interface.
+- **Database Latency:** < 20ms average query response.
