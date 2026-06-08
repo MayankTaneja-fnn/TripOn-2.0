@@ -5,55 +5,43 @@
 
 ---
 
-## 1. Phase 1: Data Consolidation & Pre-processing
-**Objective:** Transform fragmented, multi-source hotel data into a clean, machine-ready data lake.
+## 1. Phase 1: Data Foundation
+**Objective:** Maintain a clean, machine-ready data lake.
 
-- **Achievement:** Successfully merged 7 datasets including TripAdvisor, Datafiniti, and Booking.com samples, augmented with nationwide synthetic data for Indian states.
+- **Achievement:** Successfully unified all hotel data, including nationwide coverage across 36 Indian states and UTs.
 - **Engineering Highlights:**
-    - **Schema Unification:** Resolved structural conflicts where hotel names, addresses, or metadata were missing across disparate sources.
-    - **Rating Normalization:** Calibrated all reviews from multi-scale (1-5, 1-10) to a uniform float scale (1.0 - 5.0) to ensure comparability.
-    - **Nationwide Expansion:** Generated synthetic data (`synthetic_indian_hotel_data.csv`) for Indian states/UTs previously unrepresented, ensuring a baseline of at least 5 hotels per state.
+    - **Schema Unification:** Established a strict internal schema for all hotel data.
+    - **Rating Normalization:** Calibrated all reviews to a standard float scale (1.0 - 5.0).
+    - **Nationwide Coverage:** Maintained a baseline of at least 5 hotels per Indian state/UT.
 - **Artifacts:** `data/datasets/master_hotel_data.csv`, `data/datasets/synthetic_indian_hotel_data.csv`.
 
 ---
 
 ## 2. Phase 2: Review Intelligence & Database Layer
-**Objective:** Move beyond simple ratings to understand "Why" a hotel is good or bad.
+**Objective:** Deep intelligence on hotel performance.
 
 ### A. Relational Database Implementation (Supabase)
-- **Schema Design:** Engineered a normalized relational model optimized for lookup speed and data integrity.
-    - `locations`: 2,276 unique cities/provinces indexed for regional queries.
-    - `hotels`: 4,835 master profiles with pre-computed intelligence metrics.
-    - `reviews`: 148,844 raw text entries linked to hotel IDs via foreign keys.
-- **Migration Optimization:** 
-    - Implemented `execute_values` for bulk insertion, achieving 10x faster ingestion.
-    - Enforced `unique_hotel_per_location` constraints and cascading deletes to prevent data pollution.
+- **Schema Design:** A normalized relational model optimized for query performance and data integrity.
+    - `locations`: 2,276 unique regional indices.
+    - `hotels`: 4,835 master profiles with pre-computed metrics.
+    - `reviews`: 148,844 entries linked via foreign keys.
+- **Migration Optimization:** Implemented bulk insertion for high-speed ingestion and strict enforcement of relational constraints.
 
 ### B. Aspect-Based Sentiment Analysis (ABSA)
-- **Methodology:** Developed a high-speed **Rule-Based Lexical Engine**.
-    - **Library:** `vaderSentiment`.
-    - **Approach:** Sentence-level keyword mapping for 7 dimensions: Cleanliness, Service, Food, Wifi, Location, Noise, Safety.
-    - **Execution:** Analyzed all 148k+ reviews. The system tokenizes text and maps sentiment to granular aspects, outputting a `sentiment_json` blob per review.
-- **Impact:** Converts subjective text into actionable quantitative data (1-10 scale).
+- **Methodology:** High-speed Rule-Based Lexical Engine using `vaderSentiment`.
+- **Dimensions:** Cleanliness, Service, Food, Wifi, Location, Noise, Safety.
+- **Impact:** Converts subjective text into granular, quantitative aspect scores (1-10 scale).
 
 ### C. The Ranking Engine & Trust Score
-- **Objective:** Consolidate 148k opinions into actionable scores for 4,835 hotels.
+- **Objective:** Consolidate opinions into actionable scores for 4,835 hotels.
 - **Algorithm:**
     - **Rating Avg:** Standard 1-5 mean.
-    - **Aspect Scores:** The mean sentiment (1-10) for each of the 7 dimensions.
-    - **Trust Score:** A combined metric, calculated via SQL CTE, that rewards hotels with high consistency across specific categories, not just high raw ratings.
-- **Performance:** Optimized SQL query reduces computation time from minutes to < 10 seconds.
+    - **Aspect Scores:** Mean sentiment (1-10) for all dimensions.
+    - **Trust Score:** Calculated via SQL CTE to reward consistency across categories.
 
 ---
 
-## 3. Workspace Cleanup & Optimization
-- **Raw Data Purge:** Removed ~500MB of redundant archive folders to maintain a lean repository.
-- **Debugging Cleanup:** Deleted temporary validation scripts.
-- **Environment Hardening:** Standardized Python dependencies (`psycopg2`, `vaderSentiment`, `transformers==4.46.2`).
-
----
-
-## 4. Current Technical Metrics
+## 3. Current Technical Metrics
 - **Total Processed Reviews:** 148,844
 - **Unique Hotels Indexed:** 4,835
 - **Unique Locations:** 2,276
@@ -61,7 +49,7 @@
 
 ---
 
-## 5. Upcoming: Phase 3 (AI Assistant & RAG)
-- **Vector Search:** Implementing `pgvector` for semantic search on reviews.
-- **Reasoning Engine:** Building the logic that explains recommendations (e.g., "This hotel is #1 for Service in Paris").
-- **Frontend Integration:** Connecting the backend intelligence to a user-facing chat interface.
+## 4. Upcoming: Phase 3 (AI Assistant & RAG)
+- **Vector Search:** Implementing `pgvector` for semantic review search.
+- **Reasoning Engine:** Building recommendation explainability.
+- **Frontend Integration:** Connecting backend intelligence to a user-facing chat interface.
