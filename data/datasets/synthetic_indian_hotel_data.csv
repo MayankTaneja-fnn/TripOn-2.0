@@ -1,0 +1,176 @@
+hotel_name,city,province,country,latitude,longitude,review_text,rating,data_source
+Synthetic Visakhapatnam Hotel 1,Visakhapatnam,Andhra Pradesh,India,8.625035909965437,96.92980381132476,"Great stay in Visakhapatnam, Andhra Pradesh!",4.32078921404924,Synthetic_Generator
+Synthetic Visakhapatnam Hotel 2,Visakhapatnam,Andhra Pradesh,India,19.12630282095966,91.65167887891558,"Great stay in Visakhapatnam, Andhra Pradesh!",4.0567023065416095,Synthetic_Generator
+Synthetic Visakhapatnam Hotel 3,Visakhapatnam,Andhra Pradesh,India,30.487143079823003,90.05319579577062,"Great stay in Visakhapatnam, Andhra Pradesh!",4.310945492294092,Synthetic_Generator
+Synthetic Visakhapatnam Hotel 4,Visakhapatnam,Andhra Pradesh,India,15.163345117741102,96.16460964538497,"Great stay in Visakhapatnam, Andhra Pradesh!",4.425009315508408,Synthetic_Generator
+Synthetic Visakhapatnam Hotel 5,Visakhapatnam,Andhra Pradesh,India,12.478175937756717,90.70160257970062,"Great stay in Visakhapatnam, Andhra Pradesh!",3.8142918102840433,Synthetic_Generator
+Synthetic Itanagar Hotel 1,Itanagar,Arunachal Pradesh,India,28.28573247375697,76.86584203534127,"Great stay in Itanagar, Arunachal Pradesh!",4.702006337625249,Synthetic_Generator
+Synthetic Itanagar Hotel 2,Itanagar,Arunachal Pradesh,India,24.1672846716742,84.94511450373298,"Great stay in Itanagar, Arunachal Pradesh!",3.454215555951297,Synthetic_Generator
+Synthetic Itanagar Hotel 3,Itanagar,Arunachal Pradesh,India,24.068509897812195,69.00434849744451,"Great stay in Itanagar, Arunachal Pradesh!",4.557608762206965,Synthetic_Generator
+Synthetic Itanagar Hotel 4,Itanagar,Arunachal Pradesh,India,12.08629574132263,86.23728425049444,"Great stay in Itanagar, Arunachal Pradesh!",4.011954425858104,Synthetic_Generator
+Synthetic Itanagar Hotel 5,Itanagar,Arunachal Pradesh,India,11.490845287786254,85.07476401162194,"Great stay in Itanagar, Arunachal Pradesh!",3.1738285277991993,Synthetic_Generator
+Synthetic Guwahati Hotel 1,Guwahati,Assam,India,25.043158940637017,79.17924655044094,"Great stay in Guwahati, Assam!",3.2425987134115237,Synthetic_Generator
+Synthetic Guwahati Hotel 2,Guwahati,Assam,India,27.320795793004912,88.48945388136458,"Great stay in Guwahati, Assam!",3.746687678210427,Synthetic_Generator
+Synthetic Guwahati Hotel 3,Guwahati,Assam,India,21.069229905004548,77.26390858348985,"Great stay in Guwahati, Assam!",3.88173203005286,Synthetic_Generator
+Synthetic Guwahati Hotel 4,Guwahati,Assam,India,22.491377454657716,94.83861814382742,"Great stay in Guwahati, Assam!",4.567738680452392,Synthetic_Generator
+Synthetic Guwahati Hotel 5,Guwahati,Assam,India,27.689055811880408,79.75864500161445,"Great stay in Guwahati, Assam!",3.79195877871798,Synthetic_Generator
+Synthetic Patna Hotel 1,Patna,Bihar,India,11.817485734014562,69.9224463503956,"Great stay in Patna, Bihar!",3.6366243310172344,Synthetic_Generator
+Synthetic Patna Hotel 2,Patna,Bihar,India,34.74334478723907,87.64294555206007,"Great stay in Patna, Bihar!",3.802436052891828,Synthetic_Generator
+Synthetic Patna Hotel 3,Patna,Bihar,India,9.763326649842284,91.71508874029985,"Great stay in Patna, Bihar!",4.2321724456865395,Synthetic_Generator
+Synthetic Patna Hotel 4,Patna,Bihar,India,36.914353490978414,91.38530429718526,"Great stay in Patna, Bihar!",4.956639947150212,Synthetic_Generator
+Synthetic Patna Hotel 5,Patna,Bihar,India,22.97934573276836,78.94081597328449,"Great stay in Patna, Bihar!",3.4035293807026044,Synthetic_Generator
+Synthetic Raipur Hotel 1,Raipur,Chhattisgarh,India,17.461144571854902,86.52241971455314,"Great stay in Raipur, Chhattisgarh!",4.054933073593386,Synthetic_Generator
+Synthetic Raipur Hotel 2,Raipur,Chhattisgarh,India,36.50492706677882,86.181524148296,"Great stay in Raipur, Chhattisgarh!",4.911601878310223,Synthetic_Generator
+Synthetic Raipur Hotel 3,Raipur,Chhattisgarh,India,16.53518965216746,80.1082081358943,"Great stay in Raipur, Chhattisgarh!",4.506086432273675,Synthetic_Generator
+Synthetic Raipur Hotel 4,Raipur,Chhattisgarh,India,35.69260296162446,72.59695872743879,"Great stay in Raipur, Chhattisgarh!",3.259451674498696,Synthetic_Generator
+Synthetic Raipur Hotel 5,Raipur,Chhattisgarh,India,36.104264200764575,75.16761094665439,"Great stay in Raipur, Chhattisgarh!",3.5646785633274325,Synthetic_Generator
+Synthetic Panaji Hotel 1,Panaji,Goa,India,29.915080086898012,89.99899914773842,"Great stay in Panaji, Goa!",4.689476451012766,Synthetic_Generator
+Synthetic Panaji Hotel 2,Panaji,Goa,India,21.90881141619236,75.19349960851648,"Great stay in Panaji, Goa!",4.885274217424506,Synthetic_Generator
+Synthetic Panaji Hotel 3,Panaji,Goa,India,8.19396089196539,75.9277669929,"Great stay in Panaji, Goa!",4.655937240477613,Synthetic_Generator
+Synthetic Panaji Hotel 4,Panaji,Goa,India,29.27897135242342,96.99340296548549,"Great stay in Panaji, Goa!",3.9070016754389307,Synthetic_Generator
+Synthetic Panaji Hotel 5,Panaji,Goa,India,24.712994042590754,90.65032278801847,"Great stay in Panaji, Goa!",3.632575392234398,Synthetic_Generator
+Synthetic Ahmedabad Hotel 1,Ahmedabad,Gujarat,India,17.336688101355456,76.52936053375802,"Great stay in Ahmedabad, Gujarat!",4.140594212388942,Synthetic_Generator
+Synthetic Ahmedabad Hotel 2,Ahmedabad,Gujarat,India,15.407986915891934,89.93248666760815,"Great stay in Ahmedabad, Gujarat!",3.184141567433328,Synthetic_Generator
+Synthetic Ahmedabad Hotel 3,Ahmedabad,Gujarat,India,8.88460029975203,83.16391003083889,"Great stay in Ahmedabad, Gujarat!",4.9678929801423894,Synthetic_Generator
+Synthetic Ahmedabad Hotel 4,Ahmedabad,Gujarat,India,13.825610284915001,82.35028557135865,"Great stay in Ahmedabad, Gujarat!",3.0017707299830416,Synthetic_Generator
+Synthetic Ahmedabad Hotel 5,Ahmedabad,Gujarat,India,12.9672971657886,79.26240367419952,"Great stay in Ahmedabad, Gujarat!",4.139224467688997,Synthetic_Generator
+Synthetic Gurugram Hotel 1,Gurugram,Haryana,India,20.123003465847923,90.84032853693105,"Great stay in Gurugram, Haryana!",4.094078657553062,Synthetic_Generator
+Synthetic Gurugram Hotel 2,Gurugram,Haryana,India,10.392632510475167,87.62961639443233,"Great stay in Gurugram, Haryana!",3.3696973747629873,Synthetic_Generator
+Synthetic Gurugram Hotel 3,Gurugram,Haryana,India,31.3576148878098,85.16645544376868,"Great stay in Gurugram, Haryana!",4.89375231415257,Synthetic_Generator
+Synthetic Gurugram Hotel 4,Gurugram,Haryana,India,33.74776647646779,80.67177676931861,"Great stay in Gurugram, Haryana!",3.902458323073933,Synthetic_Generator
+Synthetic Gurugram Hotel 5,Gurugram,Haryana,India,14.126801554993989,86.35330459857018,"Great stay in Gurugram, Haryana!",4.745459173404664,Synthetic_Generator
+Synthetic Shimla Hotel 1,Shimla,Himachal Pradesh,India,33.80009815231218,84.24880627604355,"Great stay in Shimla, Himachal Pradesh!",3.274464261746549,Synthetic_Generator
+Synthetic Shimla Hotel 2,Shimla,Himachal Pradesh,India,24.790197022530005,81.49359239047851,"Great stay in Shimla, Himachal Pradesh!",3.4141196427200606,Synthetic_Generator
+Synthetic Shimla Hotel 3,Shimla,Himachal Pradesh,India,12.469172847084517,84.09819137830021,"Great stay in Shimla, Himachal Pradesh!",4.496560724816653,Synthetic_Generator
+Synthetic Shimla Hotel 4,Shimla,Himachal Pradesh,India,8.524243984226821,88.11814841327576,"Great stay in Shimla, Himachal Pradesh!",4.933171642814992,Synthetic_Generator
+Synthetic Shimla Hotel 5,Shimla,Himachal Pradesh,India,24.74307997635853,86.83104007837397,"Great stay in Shimla, Himachal Pradesh!",4.462622511376001,Synthetic_Generator
+Synthetic Ranchi Hotel 1,Ranchi,Jharkhand,India,36.29229945833828,79.797298454352,"Great stay in Ranchi, Jharkhand!",4.181915630066629,Synthetic_Generator
+Synthetic Ranchi Hotel 2,Ranchi,Jharkhand,India,36.318391264875395,88.42145526411385,"Great stay in Ranchi, Jharkhand!",4.129246547608096,Synthetic_Generator
+Synthetic Ranchi Hotel 3,Ranchi,Jharkhand,India,29.108672449840036,70.05277586822288,"Great stay in Ranchi, Jharkhand!",4.455568426607069,Synthetic_Generator
+Synthetic Ranchi Hotel 4,Ranchi,Jharkhand,India,22.617165650005457,83.31397642880798,"Great stay in Ranchi, Jharkhand!",3.8138185780734313,Synthetic_Generator
+Synthetic Ranchi Hotel 5,Ranchi,Jharkhand,India,31.96609902220822,84.16081488887436,"Great stay in Ranchi, Jharkhand!",4.277357862817558,Synthetic_Generator
+Synthetic Bengaluru Hotel 1,Bengaluru,Karnataka,India,29.458719240265452,90.78632694109466,"Great stay in Bengaluru, Karnataka!",4.969943311843677,Synthetic_Generator
+Synthetic Bengaluru Hotel 2,Bengaluru,Karnataka,India,20.747157529758617,71.5575690891505,"Great stay in Bengaluru, Karnataka!",3.9241183176053047,Synthetic_Generator
+Synthetic Bengaluru Hotel 3,Bengaluru,Karnataka,India,27.21080085490299,94.9882318238307,"Great stay in Bengaluru, Karnataka!",4.383750956724995,Synthetic_Generator
+Synthetic Bengaluru Hotel 4,Bengaluru,Karnataka,India,26.533105380337602,75.7595581931932,"Great stay in Bengaluru, Karnataka!",3.3024271669699097,Synthetic_Generator
+Synthetic Bengaluru Hotel 5,Bengaluru,Karnataka,India,36.807742410941174,91.29572806175524,"Great stay in Bengaluru, Karnataka!",4.435411585152235,Synthetic_Generator
+Synthetic Kochi Hotel 1,Kochi,Kerala,India,31.128153369854786,69.931711264555,"Great stay in Kochi, Kerala!",3.8463756388850987,Synthetic_Generator
+Synthetic Kochi Hotel 2,Kochi,Kerala,India,20.564492627491234,78.24162014386644,"Great stay in Kochi, Kerala!",3.5406493318603016,Synthetic_Generator
+Synthetic Kochi Hotel 3,Kochi,Kerala,India,21.406668529772595,81.49530301858006,"Great stay in Kochi, Kerala!",3.294941067064275,Synthetic_Generator
+Synthetic Kochi Hotel 4,Kochi,Kerala,India,25.525125172088504,86.09283053572071,"Great stay in Kochi, Kerala!",4.312033414958473,Synthetic_Generator
+Synthetic Kochi Hotel 5,Kochi,Kerala,India,34.697021783182194,79.5362917914665,"Great stay in Kochi, Kerala!",3.448164276151968,Synthetic_Generator
+Synthetic Indore Hotel 1,Indore,Madhya Pradesh,India,28.1729697215444,75.94472310100132,"Great stay in Indore, Madhya Pradesh!",4.9672307040019525,Synthetic_Generator
+Synthetic Indore Hotel 2,Indore,Madhya Pradesh,India,31.078046829685444,84.58953190577151,"Great stay in Indore, Madhya Pradesh!",4.208368581495842,Synthetic_Generator
+Synthetic Indore Hotel 3,Indore,Madhya Pradesh,India,32.08078444417663,90.54644532558268,"Great stay in Indore, Madhya Pradesh!",3.6620897366197225,Synthetic_Generator
+Synthetic Indore Hotel 4,Indore,Madhya Pradesh,India,31.58749385153571,86.70786797138523,"Great stay in Indore, Madhya Pradesh!",4.800527206269143,Synthetic_Generator
+Synthetic Indore Hotel 5,Indore,Madhya Pradesh,India,9.72590242163697,71.47400581493402,"Great stay in Indore, Madhya Pradesh!",4.3236756958841625,Synthetic_Generator
+Synthetic Mumbai Hotel 1,Mumbai,Maharashtra,India,21.360892313856176,90.4474528476022,"Great stay in Mumbai, Maharashtra!",4.742147753668919,Synthetic_Generator
+Synthetic Mumbai Hotel 2,Mumbai,Maharashtra,India,24.356342859653378,79.79272509101534,"Great stay in Mumbai, Maharashtra!",3.0229346583994623,Synthetic_Generator
+Synthetic Mumbai Hotel 3,Mumbai,Maharashtra,India,36.29340342650735,85.63180185330846,"Great stay in Mumbai, Maharashtra!",4.364800334371812,Synthetic_Generator
+Synthetic Mumbai Hotel 4,Mumbai,Maharashtra,India,28.88763139094776,73.8883147908569,"Great stay in Mumbai, Maharashtra!",3.614862482079482,Synthetic_Generator
+Synthetic Mumbai Hotel 5,Mumbai,Maharashtra,India,20.953062262809016,68.5753169981355,"Great stay in Mumbai, Maharashtra!",3.207278651360185,Synthetic_Generator
+Synthetic Imphal Hotel 1,Imphal,Manipur,India,34.90210681197427,88.48828433158668,"Great stay in Imphal, Manipur!",3.243845104003217,Synthetic_Generator
+Synthetic Imphal Hotel 2,Imphal,Manipur,India,36.39645216177955,82.23742335981524,"Great stay in Imphal, Manipur!",4.79147351143722,Synthetic_Generator
+Synthetic Imphal Hotel 3,Imphal,Manipur,India,9.253723043804186,71.93100258980677,"Great stay in Imphal, Manipur!",4.185979923177328,Synthetic_Generator
+Synthetic Imphal Hotel 4,Imphal,Manipur,India,21.109694947218582,71.3338049736437,"Great stay in Imphal, Manipur!",4.302378932848029,Synthetic_Generator
+Synthetic Imphal Hotel 5,Imphal,Manipur,India,34.071951579386436,91.95514576865818,"Great stay in Imphal, Manipur!",4.2397377413809645,Synthetic_Generator
+Synthetic Shillong Hotel 1,Shillong,Meghalaya,India,34.641071683558366,95.44918047671422,"Great stay in Shillong, Meghalaya!",3.80685698056418,Synthetic_Generator
+Synthetic Shillong Hotel 2,Shillong,Meghalaya,India,33.535702216224124,90.21264043850107,"Great stay in Shillong, Meghalaya!",4.584108147937418,Synthetic_Generator
+Synthetic Shillong Hotel 3,Shillong,Meghalaya,India,22.80998024793523,88.79417899280831,"Great stay in Shillong, Meghalaya!",3.2747293368152643,Synthetic_Generator
+Synthetic Shillong Hotel 4,Shillong,Meghalaya,India,26.2949808504082,88.52460534230055,"Great stay in Shillong, Meghalaya!",3.34508038744174,Synthetic_Generator
+Synthetic Shillong Hotel 5,Shillong,Meghalaya,India,29.768308159541373,96.01230644794268,"Great stay in Shillong, Meghalaya!",4.5251466526537705,Synthetic_Generator
+Synthetic Aizawl Hotel 1,Aizawl,Mizoram,India,35.44164212160098,91.76143088926364,"Great stay in Aizawl, Mizoram!",3.9722707087588836,Synthetic_Generator
+Synthetic Aizawl Hotel 2,Aizawl,Mizoram,India,18.11360664407799,73.182088648234,"Great stay in Aizawl, Mizoram!",3.6950528940135117,Synthetic_Generator
+Synthetic Aizawl Hotel 3,Aizawl,Mizoram,India,31.58764365230947,87.09329703267079,"Great stay in Aizawl, Mizoram!",3.721031325736784,Synthetic_Generator
+Synthetic Aizawl Hotel 4,Aizawl,Mizoram,India,28.387654834311252,74.85485502610697,"Great stay in Aizawl, Mizoram!",4.267834196878972,Synthetic_Generator
+Synthetic Aizawl Hotel 5,Aizawl,Mizoram,India,31.6093576249202,70.09877234319308,"Great stay in Aizawl, Mizoram!",3.4563713886361267,Synthetic_Generator
+Synthetic Kohima Hotel 1,Kohima,Nagaland,India,17.84599968322218,74.4337200130713,"Great stay in Kohima, Nagaland!",3.647632599733835,Synthetic_Generator
+Synthetic Kohima Hotel 2,Kohima,Nagaland,India,20.110477944601556,80.48102839781063,"Great stay in Kohima, Nagaland!",3.7066190310360776,Synthetic_Generator
+Synthetic Kohima Hotel 3,Kohima,Nagaland,India,11.629187639477523,74.87009721852094,"Great stay in Kohima, Nagaland!",4.195758795072987,Synthetic_Generator
+Synthetic Kohima Hotel 4,Kohima,Nagaland,India,16.603249464132784,71.16880990184977,"Great stay in Kohima, Nagaland!",3.0937027424112733,Synthetic_Generator
+Synthetic Kohima Hotel 5,Kohima,Nagaland,India,9.234999800963886,68.86047787738636,"Great stay in Kohima, Nagaland!",3.99512944357028,Synthetic_Generator
+Synthetic Bhubaneswar Hotel 1,Bhubaneswar,Odisha,India,23.615184814629046,96.79828217120512,"Great stay in Bhubaneswar, Odisha!",4.774184427742389,Synthetic_Generator
+Synthetic Bhubaneswar Hotel 2,Bhubaneswar,Odisha,India,36.61703867230032,72.57002464080593,"Great stay in Bhubaneswar, Odisha!",3.1462880405732627,Synthetic_Generator
+Synthetic Bhubaneswar Hotel 3,Bhubaneswar,Odisha,India,12.767081475591388,68.55359710581294,"Great stay in Bhubaneswar, Odisha!",3.8611887542737717,Synthetic_Generator
+Synthetic Bhubaneswar Hotel 4,Bhubaneswar,Odisha,India,29.465558456674326,71.8469425521768,"Great stay in Bhubaneswar, Odisha!",4.419559620327575,Synthetic_Generator
+Synthetic Bhubaneswar Hotel 5,Bhubaneswar,Odisha,India,16.735638447922984,78.24359336165217,"Great stay in Bhubaneswar, Odisha!",4.981878578852649,Synthetic_Generator
+Synthetic Amritsar Hotel 1,Amritsar,Punjab,India,29.195164016284636,79.14271450088492,"Great stay in Amritsar, Punjab!",3.4593201501993245,Synthetic_Generator
+Synthetic Amritsar Hotel 2,Amritsar,Punjab,India,34.10042104851556,81.56928399899299,"Great stay in Amritsar, Punjab!",4.090906523845152,Synthetic_Generator
+Synthetic Amritsar Hotel 3,Amritsar,Punjab,India,12.014548143478091,75.4863495845938,"Great stay in Amritsar, Punjab!",4.866654729721151,Synthetic_Generator
+Synthetic Amritsar Hotel 4,Amritsar,Punjab,India,21.58468832125248,87.67804549399104,"Great stay in Amritsar, Punjab!",3.455661084006065,Synthetic_Generator
+Synthetic Amritsar Hotel 5,Amritsar,Punjab,India,34.80480680724388,80.75146519213705,"Great stay in Amritsar, Punjab!",4.758696683796164,Synthetic_Generator
+Synthetic Jaipur Hotel 1,Jaipur,Rajasthan,India,19.4197623799446,77.78473888230222,"Great stay in Jaipur, Rajasthan!",3.853351089366493,Synthetic_Generator
+Synthetic Jaipur Hotel 2,Jaipur,Rajasthan,India,29.33292165799265,93.51344115862207,"Great stay in Jaipur, Rajasthan!",3.8482434834780967,Synthetic_Generator
+Synthetic Jaipur Hotel 3,Jaipur,Rajasthan,India,10.030481678795855,84.39019846692723,"Great stay in Jaipur, Rajasthan!",4.447400414743402,Synthetic_Generator
+Synthetic Jaipur Hotel 4,Jaipur,Rajasthan,India,14.30058636966396,87.77039303299729,"Great stay in Jaipur, Rajasthan!",4.980492104442783,Synthetic_Generator
+Synthetic Jaipur Hotel 5,Jaipur,Rajasthan,India,12.012580772845139,85.6095746041287,"Great stay in Jaipur, Rajasthan!",4.817314209702792,Synthetic_Generator
+Synthetic Gangtok Hotel 1,Gangtok,Sikkim,India,16.470399096178728,76.11536909527264,"Great stay in Gangtok, Sikkim!",4.428308108428557,Synthetic_Generator
+Synthetic Gangtok Hotel 2,Gangtok,Sikkim,India,32.869882418184716,78.88442791422288,"Great stay in Gangtok, Sikkim!",3.542518360681406,Synthetic_Generator
+Synthetic Gangtok Hotel 3,Gangtok,Sikkim,India,9.666216483574447,86.49624289851437,"Great stay in Gangtok, Sikkim!",3.314410827098561,Synthetic_Generator
+Synthetic Gangtok Hotel 4,Gangtok,Sikkim,India,36.42729213356025,73.8065936838996,"Great stay in Gangtok, Sikkim!",3.1483530261280492,Synthetic_Generator
+Synthetic Gangtok Hotel 5,Gangtok,Sikkim,India,8.968692952796784,96.03501686581981,"Great stay in Gangtok, Sikkim!",3.7280996189728723,Synthetic_Generator
+Synthetic Chennai Hotel 1,Chennai,Tamil Nadu,India,33.836639579866876,81.62358722752117,"Great stay in Chennai, Tamil Nadu!",3.5306336539270835,Synthetic_Generator
+Synthetic Chennai Hotel 2,Chennai,Tamil Nadu,India,22.9520789031031,68.04263846118359,"Great stay in Chennai, Tamil Nadu!",4.146080309994126,Synthetic_Generator
+Synthetic Chennai Hotel 3,Chennai,Tamil Nadu,India,17.229474844646283,85.73382979621724,"Great stay in Chennai, Tamil Nadu!",3.1264680426417684,Synthetic_Generator
+Synthetic Chennai Hotel 4,Chennai,Tamil Nadu,India,10.351724358152687,88.7037997598296,"Great stay in Chennai, Tamil Nadu!",4.463774115352626,Synthetic_Generator
+Synthetic Chennai Hotel 5,Chennai,Tamil Nadu,India,26.058676848639752,91.42547260772054,"Great stay in Chennai, Tamil Nadu!",3.081722975570098,Synthetic_Generator
+Synthetic Hyderabad Hotel 1,Hyderabad,Telangana,India,32.93326715485884,76.33993864491539,"Great stay in Hyderabad, Telangana!",4.633443227473777,Synthetic_Generator
+Synthetic Hyderabad Hotel 2,Hyderabad,Telangana,India,27.69133690122557,83.09782641239286,"Great stay in Hyderabad, Telangana!",3.5532290884287008,Synthetic_Generator
+Synthetic Hyderabad Hotel 3,Hyderabad,Telangana,India,18.150993332278148,87.53497401419965,"Great stay in Hyderabad, Telangana!",4.91642109245338,Synthetic_Generator
+Synthetic Hyderabad Hotel 4,Hyderabad,Telangana,India,12.986514253821952,73.81779284256467,"Great stay in Hyderabad, Telangana!",3.8982820274555907,Synthetic_Generator
+Synthetic Hyderabad Hotel 5,Hyderabad,Telangana,India,23.058196629653914,88.41072543646992,"Great stay in Hyderabad, Telangana!",3.661455023986717,Synthetic_Generator
+Synthetic Agartala Hotel 1,Agartala,Tripura,India,17.53533839394679,70.75889716485692,"Great stay in Agartala, Tripura!",4.975402357983448,Synthetic_Generator
+Synthetic Agartala Hotel 2,Agartala,Tripura,India,23.43784099243885,77.76656552916347,"Great stay in Agartala, Tripura!",3.0497342113578174,Synthetic_Generator
+Synthetic Agartala Hotel 3,Agartala,Tripura,India,14.353265288411372,86.30642180521448,"Great stay in Agartala, Tripura!",4.673839267761449,Synthetic_Generator
+Synthetic Agartala Hotel 4,Agartala,Tripura,India,22.19972446349608,73.90165077808372,"Great stay in Agartala, Tripura!",4.865954276920534,Synthetic_Generator
+Synthetic Agartala Hotel 5,Agartala,Tripura,India,32.27651156063834,75.3619417622626,"Great stay in Agartala, Tripura!",4.597746949258431,Synthetic_Generator
+Synthetic Lucknow Hotel 1,Lucknow,Uttar Pradesh,India,36.594410857775316,87.90215804883339,"Great stay in Lucknow, Uttar Pradesh!",4.335893336031332,Synthetic_Generator
+Synthetic Lucknow Hotel 2,Lucknow,Uttar Pradesh,India,35.396993836887276,91.65996175145261,"Great stay in Lucknow, Uttar Pradesh!",3.0259356309183696,Synthetic_Generator
+Synthetic Lucknow Hotel 3,Lucknow,Uttar Pradesh,India,30.04946527422756,78.45327142842898,"Great stay in Lucknow, Uttar Pradesh!",3.408803262216459,Synthetic_Generator
+Synthetic Lucknow Hotel 4,Lucknow,Uttar Pradesh,India,20.960714867795797,76.89326871509685,"Great stay in Lucknow, Uttar Pradesh!",3.163787174026048,Synthetic_Generator
+Synthetic Lucknow Hotel 5,Lucknow,Uttar Pradesh,India,17.240201712212702,96.9480089688309,"Great stay in Lucknow, Uttar Pradesh!",3.8620313618079893,Synthetic_Generator
+Synthetic Dehradun Hotel 1,Dehradun,Uttarakhand,India,33.024884664885036,93.06894775794615,"Great stay in Dehradun, Uttarakhand!",3.709443963770478,Synthetic_Generator
+Synthetic Dehradun Hotel 2,Dehradun,Uttarakhand,India,18.642880438215947,94.38663826914141,"Great stay in Dehradun, Uttarakhand!",4.434539055301611,Synthetic_Generator
+Synthetic Dehradun Hotel 3,Dehradun,Uttarakhand,India,32.795850470977385,83.939511464207,"Great stay in Dehradun, Uttarakhand!",3.7060851518340368,Synthetic_Generator
+Synthetic Dehradun Hotel 4,Dehradun,Uttarakhand,India,16.9611193316072,82.82486871756392,"Great stay in Dehradun, Uttarakhand!",4.8628381294186624,Synthetic_Generator
+Synthetic Dehradun Hotel 5,Dehradun,Uttarakhand,India,16.757710692032205,77.5065849804418,"Great stay in Dehradun, Uttarakhand!",3.7567187727899496,Synthetic_Generator
+Synthetic Kolkata Hotel 1,Kolkata,West Bengal,India,9.490176053588911,88.87171481035794,"Great stay in Kolkata, West Bengal!",3.586043290776664,Synthetic_Generator
+Synthetic Kolkata Hotel 2,Kolkata,West Bengal,India,26.75911127416876,76.96631417614657,"Great stay in Kolkata, West Bengal!",3.632738510700854,Synthetic_Generator
+Synthetic Kolkata Hotel 3,Kolkata,West Bengal,India,12.013777087663996,95.12599087420884,"Great stay in Kolkata, West Bengal!",3.9768531118178725,Synthetic_Generator
+Synthetic Kolkata Hotel 4,Kolkata,West Bengal,India,28.367506087985923,80.2999866382984,"Great stay in Kolkata, West Bengal!",4.434102965814097,Synthetic_Generator
+Synthetic Kolkata Hotel 5,Kolkata,West Bengal,India,20.419337264075594,91.50599305686652,"Great stay in Kolkata, West Bengal!",4.042025110670307,Synthetic_Generator
+Synthetic Port Blair Hotel 1,Port Blair,Andaman and Nicobar Islands,India,32.344450215054735,78.93512303105966,"Great stay in Port Blair, Andaman and Nicobar Islands!",4.033067106190483,Synthetic_Generator
+Synthetic Port Blair Hotel 2,Port Blair,Andaman and Nicobar Islands,India,14.671560293311071,75.564143930904,"Great stay in Port Blair, Andaman and Nicobar Islands!",3.7391004473100216,Synthetic_Generator
+Synthetic Port Blair Hotel 3,Port Blair,Andaman and Nicobar Islands,India,14.458143651366164,96.28391927621539,"Great stay in Port Blair, Andaman and Nicobar Islands!",4.6517255404262166,Synthetic_Generator
+Synthetic Port Blair Hotel 4,Port Blair,Andaman and Nicobar Islands,India,17.8388007398326,69.29560156284899,"Great stay in Port Blair, Andaman and Nicobar Islands!",3.4909063038568275,Synthetic_Generator
+Synthetic Port Blair Hotel 5,Port Blair,Andaman and Nicobar Islands,India,35.99570280142114,87.19978853572644,"Great stay in Port Blair, Andaman and Nicobar Islands!",4.458157198395322,Synthetic_Generator
+Synthetic Chandigarh Hotel 1,Chandigarh,Chandigarh,India,13.774273959985678,76.11539670490983,"Great stay in Chandigarh, Chandigarh!",4.007991940882313,Synthetic_Generator
+Synthetic Chandigarh Hotel 2,Chandigarh,Chandigarh,India,20.53228035918467,77.24311259437302,"Great stay in Chandigarh, Chandigarh!",3.6650606001744115,Synthetic_Generator
+Synthetic Chandigarh Hotel 3,Chandigarh,Chandigarh,India,26.07410795864467,90.91672215664806,"Great stay in Chandigarh, Chandigarh!",4.173761715159304,Synthetic_Generator
+Synthetic Chandigarh Hotel 4,Chandigarh,Chandigarh,India,31.88958336227421,84.43944150981552,"Great stay in Chandigarh, Chandigarh!",3.2451021462972403,Synthetic_Generator
+Synthetic Chandigarh Hotel 5,Chandigarh,Chandigarh,India,22.323315594625875,79.7347915551424,"Great stay in Chandigarh, Chandigarh!",4.061503956112942,Synthetic_Generator
+Synthetic Daman Hotel 1,Daman,Dadra and Nagar Haveli and Daman and Diu,India,33.914332164043984,78.35108917067811,"Great stay in Daman, Dadra and Nagar Haveli and Daman and Diu!",4.799568074851817,Synthetic_Generator
+Synthetic Daman Hotel 2,Daman,Dadra and Nagar Haveli and Daman and Diu,India,9.216514526758292,91.42900714526716,"Great stay in Daman, Dadra and Nagar Haveli and Daman and Diu!",3.2455369779243575,Synthetic_Generator
+Synthetic Daman Hotel 3,Daman,Dadra and Nagar Haveli and Daman and Diu,India,12.534924635360044,73.0828560854136,"Great stay in Daman, Dadra and Nagar Haveli and Daman and Diu!",4.905554977759021,Synthetic_Generator
+Synthetic Daman Hotel 4,Daman,Dadra and Nagar Haveli and Daman and Diu,India,30.287995629306906,88.38801383817776,"Great stay in Daman, Dadra and Nagar Haveli and Daman and Diu!",4.542200704408099,Synthetic_Generator
+Synthetic Daman Hotel 5,Daman,Dadra and Nagar Haveli and Daman and Diu,India,13.980406191402865,88.63621149800942,"Great stay in Daman, Dadra and Nagar Haveli and Daman and Diu!",3.4508415214492647,Synthetic_Generator
+Synthetic Srinagar Hotel 1,Srinagar,Jammu and Kashmir,India,12.842905028864855,78.6177183838433,"Great stay in Srinagar, Jammu and Kashmir!",3.6726423204533827,Synthetic_Generator
+Synthetic Srinagar Hotel 2,Srinagar,Jammu and Kashmir,India,8.099950903298797,68.5493486999755,"Great stay in Srinagar, Jammu and Kashmir!",4.403796806335354,Synthetic_Generator
+Synthetic Srinagar Hotel 3,Srinagar,Jammu and Kashmir,India,11.814626708712364,69.75781333242132,"Great stay in Srinagar, Jammu and Kashmir!",4.035158749248428,Synthetic_Generator
+Synthetic Srinagar Hotel 4,Srinagar,Jammu and Kashmir,India,26.84270849326726,82.72120875232613,"Great stay in Srinagar, Jammu and Kashmir!",4.523046216458454,Synthetic_Generator
+Synthetic Srinagar Hotel 5,Srinagar,Jammu and Kashmir,India,33.712571732334155,94.35192488192803,"Great stay in Srinagar, Jammu and Kashmir!",4.920374593814228,Synthetic_Generator
+Synthetic Leh Hotel 1,Leh,Ladakh,India,28.852734485500296,80.56079250206946,"Great stay in Leh, Ladakh!",4.987466941903388,Synthetic_Generator
+Synthetic Leh Hotel 2,Leh,Ladakh,India,31.52690391945464,89.2113405485268,"Great stay in Leh, Ladakh!",3.6182754987310295,Synthetic_Generator
+Synthetic Leh Hotel 3,Leh,Ladakh,India,26.17977754717224,96.97015019694351,"Great stay in Leh, Ladakh!",4.288403278328212,Synthetic_Generator
+Synthetic Leh Hotel 4,Leh,Ladakh,India,24.176246674255474,95.27915496373221,"Great stay in Leh, Ladakh!",4.541897246986972,Synthetic_Generator
+Synthetic Leh Hotel 5,Leh,Ladakh,India,14.437834267325293,76.20176149388848,"Great stay in Leh, Ladakh!",4.683299668379064,Synthetic_Generator
+Synthetic Kavaratti Hotel 1,Kavaratti,Lakshadweep,India,36.77743093501732,93.61979794781372,"Great stay in Kavaratti, Lakshadweep!",3.0111977297178036,Synthetic_Generator
+Synthetic Kavaratti Hotel 2,Kavaratti,Lakshadweep,India,15.060450266215536,76.89641414833328,"Great stay in Kavaratti, Lakshadweep!",4.592582075299346,Synthetic_Generator
+Synthetic Kavaratti Hotel 3,Kavaratti,Lakshadweep,India,11.372547494751949,77.61985648093804,"Great stay in Kavaratti, Lakshadweep!",4.713535067920205,Synthetic_Generator
+Synthetic Kavaratti Hotel 4,Kavaratti,Lakshadweep,India,23.345724210341423,87.99032645608989,"Great stay in Kavaratti, Lakshadweep!",3.2100555738848255,Synthetic_Generator
+Synthetic Kavaratti Hotel 5,Kavaratti,Lakshadweep,India,11.295329983200363,82.53473520869544,"Great stay in Kavaratti, Lakshadweep!",4.29154230191794,Synthetic_Generator
+Synthetic Puducherry Hotel 1,Puducherry,Puducherry,India,9.081458179242096,79.32366794853796,"Great stay in Puducherry, Puducherry!",3.900918257988156,Synthetic_Generator
+Synthetic Puducherry Hotel 2,Puducherry,Puducherry,India,14.230180535492007,90.08379408127506,"Great stay in Puducherry, Puducherry!",3.2234625117231532,Synthetic_Generator
+Synthetic Puducherry Hotel 3,Puducherry,Puducherry,India,25.16807919349922,91.72143258743581,"Great stay in Puducherry, Puducherry!",4.2955068973918955,Synthetic_Generator
+Synthetic Puducherry Hotel 4,Puducherry,Puducherry,India,9.748133586617103,95.24606616115241,"Great stay in Puducherry, Puducherry!",4.709691595161747,Synthetic_Generator
+Synthetic Puducherry Hotel 5,Puducherry,Puducherry,India,33.43407060414755,84.2666040194455,"Great stay in Puducherry, Puducherry!",3.168479082591057,Synthetic_Generator

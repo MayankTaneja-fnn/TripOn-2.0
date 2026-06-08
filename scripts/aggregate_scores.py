@@ -41,21 +41,21 @@ def aggregate_scores_sql():
         UPDATE hotels h
         SET 
             rating_avg = ROUND(ar.avg_rating::numeric, 2),
-            cleanliness_score = ROUND(COALESCE(ar.avg_clean, 0)::numeric, 2),
-            service_score = ROUND(COALESCE(ar.avg_service, 0)::numeric, 2),
-            food_score = ROUND(COALESCE(ar.avg_food, 0)::numeric, 2),
-            wifi_score = ROUND(COALESCE(ar.avg_wifi, 0)::numeric, 2),
-            location_score = ROUND(COALESCE(ar.avg_location, 0)::numeric, 2),
-            noise_score = ROUND(COALESCE(ar.avg_noise, 0)::numeric, 2),
-            safety_score = ROUND(COALESCE(ar.avg_safety, 0)::numeric, 2),
+            cleanliness_score = ROUND(COALESCE(ar.avg_clean, 6.0)::numeric, 2),
+            service_score = ROUND(COALESCE(ar.avg_service, 6.0)::numeric, 2),
+            food_score = ROUND(COALESCE(ar.avg_food, 6.0)::numeric, 2),
+            wifi_score = ROUND(COALESCE(ar.avg_wifi, 6.0)::numeric, 2),
+            location_score = ROUND(COALESCE(ar.avg_location, 6.0)::numeric, 2),
+            noise_score = ROUND(COALESCE(ar.avg_noise, 6.0)::numeric, 2),
+            safety_score = ROUND(COALESCE(ar.avg_safety, 6.0)::numeric, 2),
             trust_score = ROUND(((ar.avg_rating + (
-                COALESCE(ar.avg_clean, 5) + 
-                COALESCE(ar.avg_service, 5) + 
-                COALESCE(ar.avg_food, 5) + 
-                COALESCE(ar.avg_wifi, 5) + 
-                COALESCE(ar.avg_location, 5) + 
-                COALESCE(ar.avg_noise, 5) + 
-                COALESCE(ar.avg_safety, 5)
+                COALESCE(ar.avg_clean, 6.0) + 
+                COALESCE(ar.avg_service, 6.0) + 
+                COALESCE(ar.avg_food, 6.0) + 
+                COALESCE(ar.avg_wifi, 6.0) + 
+                COALESCE(ar.avg_location, 6.0) + 
+                COALESCE(ar.avg_noise, 6.0) + 
+                COALESCE(ar.avg_safety, 6.0)
             ) / 14.0) / 2.0)::numeric, 2),
             last_updated = CURRENT_TIMESTAMP
         FROM aggregated_reviews ar

@@ -18,7 +18,7 @@ def get_connection():
 
 def migrate():
     base_path = "C:/Users/tanej/OneDrive/Desktop/TripOn2.0/data/datasets"
-    master_file = os.path.join(base_path, "master_hotel_data.csv")
+    master_file = os.path.join(base_path, "master_indian_hotel_data.csv")
     
     if not os.path.exists(master_file):
         print(f"Error: {master_file} not found. Run scripts/consolidate_data.py first.")
@@ -26,6 +26,13 @@ def migrate():
 
     print(f"Loading data from {master_file}...")
     df = pd.read_csv(master_file)
+    
+    # Load and merge synthetic data
+    synthetic_file = os.path.join(base_path, "synthetic_indian_hotel_data.csv")
+    if os.path.exists(synthetic_file):
+        print(f"Loading synthetic data from {synthetic_file}...")
+        df_synthetic = pd.read_csv(synthetic_file)
+        df = pd.concat([df, df_synthetic], ignore_index=True)
     
     # Fill NAs
     df['city'] = df['city'].fillna('Unknown')

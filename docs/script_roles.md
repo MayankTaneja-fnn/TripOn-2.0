@@ -1,6 +1,6 @@
 # TripOn 2.0: Script Execution Registry
 
-This document details the purpose, execution context, and impact of every script developed and run during the project lifecycle.
+This document serves as the canonical registry for all scripts developed for the TripOn 2.0 project. It details the purpose, technical functionality, dependencies, and business impact of each script.
 
 ---
 
@@ -8,12 +8,15 @@ This document details the purpose, execution context, and impact of every script
 
 ### 1. `scripts/consolidate_data.py`
 - **Role:** The "Data Lake Creator". 
+- **Purpose:** Centralize heterogeneous raw data into a structured master dataset.
 - **Functionality:** 
-    - Iterates through 7 heterogeneous CSV datasets from different sources (Datafiniti, TripAdvisor, etc.).
-    - Maps diverse column headers (e.g., 'Review' vs 'review_text') to a unified internal schema.
-    - Normalizes 10-point and 5-point ratings into a standard 1.0 - 5.0 scale.
-    - Cleans whitespace and handles missing geolocation (Lat/Long) fields.
-- **Output:** `data/datasets/master_hotel_data.csv` (94,894 unified records).
+    - Iterates through 7+ raw CSV datasets (Datafiniti, TripAdvisor, Booking.com, etc.).
+    - Maps diverse column headers (e.g., 'Review' vs 'review_text') to a unified internal schema using a mapping dictionary.
+    - Normalizes ratings (10-pt vs 5-pt) into a standard 1.0 - 5.0 scale.
+    - Cleans whitespace and handles missing geolocation (Lat/Long) fields via interpolation.
+- **Impact:** Eliminates data silos, enabling uniform analytical processing.
+- **Dependencies:** `pandas`.
+- **Output:** `data/datasets/master_hotel_data.csv`.
 
 ---
 
@@ -21,34 +24,54 @@ This document details the purpose, execution context, and impact of every script
 
 ### 2. `scripts/migrate_to_postgres.py`
 - **Role:** The "Relational Architect".
+- **Purpose:** Persistent storage in a highly available, relational database (Supabase).
 - **Functionality:** 
-    - Establishes a 3-tier relational structure in Supabase: `locations` -> `hotels` -> `reviews`.
-    - Implements **High-Resiliency Batching**: Processes 1,000 rows at a time to prevent server timeouts.
-    - **Deduplication Logic**: Uses `ON CONFLICT` clauses to ensure hotels and locations are not duplicated.
-    - **Reconnection Logic**: Automatically handles intermittent network drops during the 95k record transfer.
-- **Output:** Fully populated SQL database on Supabase.
+    - Establishes a 3-tier structure (`locations` -> `hotels` -> `reviews`).
+    - Implements **High-Resiliency Batching**: Processes 1,000 records at a time using `psycopg2.extras.execute_values` to prevent memory overflows and server timeouts.
+    - **Deduplication:** Uses `ON CONFLICT` SQL clauses to maintain integrity.
+    - **Robustness:** Built-in retry mechanism for network/operational errors.
+- **Impact:** Ensures transactional integrity and provides the backbone for the Ranking Engine.
+- **Dependencies:** `pandas`, `psycopg2`.
+- **Output:** Fully populated SQL database.
 
 ### 3. `scripts/extract_aspects.py`
 - **Role:** The "Sentiment Intelligence Engine".
+- **Purpose:** Transform unstructured review text into structured aspect-based sentiment data.
 - **Functionality:** 
-    - Pivoted from heavy Deep Learning (BART) to a high-speed **Rule-Based Engine** using VADER.
-    - Uses a weighted keyword mapper to scan review text for 7 specific travel dimensions (Cleanliness, Service, Food, Wifi, Location, Noise, Safety).
-    - **Sentence-Level Analysis**: Instead of scoring the whole review, it isolates sentences mentioning specific aspects for higher precision.
-    - Updates the `sentiment_json` field in the database with granular scores (1-10).
-- **Output:** Granular intelligence data for ~95k reviews.
+    - Utilizes `vaderSentiment` for high-speed, rule-based NLP extraction.
+    - Maps review sentences to 7 pre-defined dimensions (Cleanliness, Service, Food, Wifi, Location, Noise, Safety).
+    - Stores resulting scores as a `sentiment_json` blob per review for granular retrieval.
+- **Impact:** Enables multi-dimensional hotel analysis beyond a simple 1-5 rating.
+- **Dependencies:** `vaderSentiment`, `pandas`, `psycopg2`.
+- **Output:** Populated `sentiment_json` fields in the `reviews` table.
 
 ### 4. `scripts/aggregate_scores.py`
 - **Role:** The "Ranking & Trust Engine".
+- **Purpose:** Translate granular sentiment data into ranked hotel profiles.
 - **Functionality:** 
-    - Executes high-performance SQL window functions to roll up review scores to the hotel level.
-    - **Trust Score Formula**: Implements a weighted algorithm: `(Avg Rating + (Avg Aspect Scores / 2)) / 2`.
-    - Updates the master `hotels` table with 9 distinct metrics per hotel.
-- **Output:** Ranked hotel profiles ready for AI recommendation.
+    - Leverages SQL Window Functions and Common Table Expressions (CTEs) for efficient aggregation.
+    - Implements a weighted **Trust Score** algorithm: `(Avg Rating + (Avg Aspect Scores / 2)) / 2`.
+    - Updates hotel master records with pre-computed scores, significantly reducing runtime on the frontend.
+- **Impact:** Powers recommendation, search, and "Explainable AI" features.
+- **Dependencies:** `psycopg2`.
+- **Output:** Populated `trust_score` and aspect scores in the `hotels` table.
+
+### 5. `scripts/generate_synthetic_states.py`
+- **Role:** The "Geographic Expansion Engine".
+- **Purpose:** Ensure nationwide data coverage for all Indian states and UTs.
+- **Functionality:** 
+    - Generates 5 synthetic hotel entries per state/UT (35 regions in total).
+    - Assigns random, but realistic, latitude/longitude coordinates per region.
+    - Aligns schema with the master dataset to allow seamless ingestion.
+- **Impact:** Provides a uniform data distribution across India, satisfying business requirements.
+- **Dependencies:** `pandas`, `numpy`.
+- **Output:** `data/datasets/synthetic_indian_hotel_data.csv`.
 
 ---
 
 ## Maintenance & Utilities
 
-### 5. `scripts/check_db_status.py` (Deleted post-use)
+### 6. `scripts/check_db_status.py` (Deleted post-use)
 - **Role:** The "Integrity Auditor".
-- **Functionality:** Verified row counts and table schema existence during the transition between migration and analysis.
+- **Purpose:** Ad-hoc verification of database state.
+- **Impact:** Ensured consistency during schema migrations.
