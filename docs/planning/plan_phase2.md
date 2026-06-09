@@ -5,7 +5,7 @@ This document details the step-by-step implementation of the Evidence-First Road
 ---
 
 ## 1. Stage 2.1: Embedding Pipeline
-**Objective:** Represent 148k+ reviews as context-enriched numerical vectors (embeddings) for high-precision semantic searching.
+**Objective:** Represent 81,636+ reviews as context-enriched numerical vectors (embeddings) for high-precision semantic searching.
 
 ### Technical Implementation:
 1.  **Environment:** Ensure `pgvector`, `sentence-transformers`, `torch`, and `psutil` are installed.

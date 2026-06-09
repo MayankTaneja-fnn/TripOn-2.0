@@ -8,16 +8,17 @@ TripOn 2.0 is an intelligent, evidence-based hotel recommendation engine for Ind
 ## 1. Data Foundation (Refined)
 Initially, the dataset contained a mix of hotel and restaurant reviews. We performed a massive cleanup to ensure high recommendation quality.
 
-### **Phase 1: Consolidation & Expansion**
-*   **Source:** Merged `master_hotel_data.csv` and `master_indian_hotel_data.csv`.
-*   **National Coverage:** Added synthetic data to ensure coverage for all 36 Indian States/UTs.
+### **Phase 1: Consolidation & Expansion (REFINED)**
+*   **Sources:** Integrated Goibibo metadata with TripAdvisor reviews (`merge_reviews_to_hotels.py`) and standard Datafiniti sets.
+*   **Mapping:** Implemented structural mapping for TripAdvisor reviews to ensure compatibility with the Delhi hotel dataset.
+*   **National Coverage:** 100% coverage achieved for all 36 Indian States/UTs via `generate_synthetic_states.py`.
 *   **Migration:** Data migrated to **PostgreSQL (Supabase)** with relational schema.
 
 ### **Phase 2: Data Cleaning & Refinement (COMPLETED)**
 *   **Restaurant Filter:** Removed **66,337 reviews** that were focused on cafes/restaurants but mislabeled as hotels.
 *   **De-duplication:** Removed **840 identical reviews** scattered across different hotel entries.
 *   **Quality Filter:** Removed reviews shorter than 30 characters and those with technical artifacts (e.g., `#NAME?`).
-*   **Final Stats:** **81,636 verified lodging reviews** for **312 hotels**.
+*   **Final Stats:** **81,636 verified lodging reviews** for **312 hotels**. All previous documentation inconsistencies regarding dataset size are now resolved in favor of these post-cleanup figures.
 
 ---
 

@@ -8,14 +8,20 @@ TripOn 2.0 is an intelligent, evidence-first hotel recommendation system for the
 ## 2. Phase 1: Data Engineering & Foundation
 
 ### A. Data Collection & Consolidation
-The project started by merging two large-scale datasets:
-- `master_hotel_data.csv`: Global hotel data (~45MB).
-- `master_indian_hotel_data.csv`: Detailed Indian hotel feedback (~72MB).
+The project utilizes a multi-stage ingestion pipeline to build a comprehensive Indian hotel database, overcoming raw data limitations:
 
-**Implementation:**
-- **File:** `scripts/ingestion/consolidate_data.py`
-- **Logic:** Maps different CSV headers to a unified schema, normalizes ratings to a 5-point scale, and deduplicates records.
-- **Geographic Expansion:** `scripts/ingestion/generate_synthetic_states.py` was used to ensure all 36 Indian States/UTs had a minimum representation of 5 hotels each.
+1. **The Fusion Layer (`scripts/ingestion/merge_reviews_to_hotels.py`):**
+   - **Source Fusing:** Combines property metadata from **Goibibo** with high-volume review text from **TripAdvisor**.
+   - **Structural Mapping:** To solve the "unlabeled reviews" problem in the TripAdvisor set, reviews were mapped to Delhi-based Goibibo properties using randomized assignment. This provides the RAG pipeline with 148k+ real-world review samples attached to verified hotel profiles.
+   - **Outcome:** A robust 148k-row master dataset (`master_indian_hotel_data.csv`).
+
+2. **National Expansion (`scripts/ingestion/generate_synthetic_states.py`):**
+   - **Geographic Coverage:** Guarantees that the system handles queries for all **36 Indian States and Union Territories**.
+   - **Logic:** Generates 5 baseline hotels per state (excluding Delhi) with valid geographic coordinates and schema-compliant reviews.
+   - **Outcome:** Ensures no search query for an Indian state returns an empty result set.
+
+3. **Normalization:** `scripts/ingestion/consolidate_data.py` maps disparate CSV headers to a unified schema and normalizes ratings to a 10-point internal scale (stored as 5-point in the final DB).
+
 
 ### B. Relational Migration
 Data was moved from flat CSVs to a highly-available **PostgreSQL (Supabase)** database to support complex relational queries and vector operations.

@@ -1,0 +1,42 @@
+# TripOn 2.0: Dataset Analysis Report
+
+This document summarizes the current data foundation for TripOn 2.0.
+
+---
+
+## 1. Data Foundation & Generation
+
+### A. Primary Fusion (`master_indian_hotel_data.csv`)
+This dataset represents the core of the Indian hotel reviews, created by fusing metadata and review text from two distinct sources to overcome labeling limitations.
+- **Sources:**
+    - **Goibibo Metadata (`goibibo_com-travel_sample.csv`):** Provided real property names, cities, and geographic coordinates.
+    - **TripAdvisor Reviews (`New_Delhi_reviews.csv`):** Provided 148k+ high-quality, real-world review texts.
+- **Fusion Logic:**
+    - Since the TripAdvisor source lacked specific hotel names/IDs, the `merge_reviews_to_hotels.py` script filtered Goibibo for Delhi-based properties.
+    - Reviews were then mapped to these properties using a structural randomized assignment (`np.random.choice`).
+    - This created a structurally sound dataset where real TripAdvisor feedback is linked to real Goibibo hotel profiles, enabling the RAG pipeline to function with high-volume data.
+- **Stats:** ~148,669 rows.
+
+### B. Geographic Expansion (`synthetic_indian_hotel_data.csv`)
+Ensures 100% nationwide coverage for testing and demonstration purposes across all 36 Indian States and UTs.
+- **Logic:**
+    - Iterates through a comprehensive list of all 36 Indian States/UTs.
+    - Generates 5 baseline "Synthetic Hotels" per state (excluding Delhi).
+    - Assigns randomized coordinates (Latitude 8-37, Longitude 68-97) and schema-compliant ratings/reviews.
+- **Stats:** 175 rows.
+
+---
+
+## 2. Normalization & Integrity
+- **Normalization:** All ratings are normalized to a [1.0, 5.0] scale.
+- **Integrity:** Post-fusion, the data is migrated to PostgreSQL (Supabase) via `migrate_to_postgres.py`, ensuring relational links between `locations`, `hotels`, and `reviews`.
+- **Filtering (Optional Phase 2):** Advanced cleaning (`clean_reviews.py`) can remove ~66k restaurant-specific reviews if high-precision lodging results are required.
+- **Stats:** ~81,636 verified lodging reviews.
+
+---
+
+## 3. Data Structure (Supabase)
+- **Tables:**
+  - `locations`: Unique city/province/country indices (2,276 entries).
+  - `hotels`: Master hotel profiles (312 unique hotels).
+  - `reviews`: Granular feedback (81,636 entries currently in DB).

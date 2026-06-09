@@ -14,12 +14,12 @@ The Ranking Engine is the heart of the product. The LLM's job is **Reasoning, Ex
 ---
 
 ## Phase 2: Semantic Search (RAG - Current Focus)
-- **Vector Embeddings & Hybrid Search:** Store review embeddings in **ChromaDB**. Implement hybrid retrieval (Structured SQL + Unstructured Vector) for contextually relevant recommendations.
+- **Vector Embeddings & Hybrid Search:** Store review embeddings in **PostgreSQL (`pgvector`)**. Implement hybrid retrieval (Structured SQL + Unstructured Vector) for contextually relevant recommendations.
 
 ---
 
 ## Phase 3: Fine-Tuning (The Reasoning Phase)
-- **Specialized Training:** Train Llama 3.2 3B on **Recommendation Style** and **Explainability** using 1000-5000 instruction pairs.
+- **Specialized Training:** (Optional) Fine-tune Llama 3.3 70B on **Recommendation Style** and **Explainability** using 1000-5000 instruction pairs.
 
 ---
 
