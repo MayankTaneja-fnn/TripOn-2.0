@@ -61,7 +61,12 @@ graph TD
    DB_PORT=...
    GROQ_API_KEY=...
    ```
-3. **Execution**: Ensure the `ml` folder is in your `PYTHONPATH` before running scripts:
+3. **Install Dependencies**:
+   ```bash
+   pip install -r ml/requirements.txt
+   python -m spacy download en_core_web_sm
+   ```
+4. **Execution**: Ensure the `ml` folder is in your `PYTHONPATH` before running scripts:
    ```bash
    $env:PYTHONPATH = "C:\path\to\TripOn2.0\ml"
    python ml/rag/engine/chat_assistant.py

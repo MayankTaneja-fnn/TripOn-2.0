@@ -1,0 +1,19 @@
+# Dependencies for ml directory
+
+# Data Processing
+pandas
+numpy
+psutil
+
+# Database
+psycopg2-binary
+
+# NLP & AI
+sentence-transformers
+spacy
+thefuzz
+vaderSentiment
+groq
+
+# Configuration & Utilities
+python-dotenv
