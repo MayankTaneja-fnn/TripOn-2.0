@@ -157,6 +157,7 @@ class HybridRetriever:
             
         # 4. Multi-Factor Ranking Engine
         # Dynamically adjust weights based on detected user intent
+        tags = constraints.get("tags", [])
         base_weights = {"Cleanliness": 0.1, "Service": 0.1, "Food": 0.1, "Wifi": 0.1, "Location": 0.1, "Noise": 0.1, "Safety": 0.1}
         
         # Boost aspect importance based on detected intent

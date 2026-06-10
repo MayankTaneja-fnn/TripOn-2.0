@@ -4,7 +4,7 @@
 1. **Initial Setup:** Initialized Next.js 15+ application (App Router, TypeScript, Tailwind CSS).
 2. **Database:** Initialized PostgreSQL tables (`users`, `chat_history`, `user_views`) using the migration scripts.
 3. **Environment Setup:** Created `frontend/.env.example` to define required environment variables for Auth and Database services.
-4. **Authentication Foundations:** Installed necessary libraries for authentication and Supabase integration.
+11. **Authentication UI:** Added Logout functionality to the Navbar using NextAuth server actions.
 
 ## Authentication Implementation Strategy
 
