@@ -1,4 +1,4 @@
-# Dependencies for ml directory
+--extra-index-url https://download.pytorch.org/whl/cpu
 
 # Data Processing
 pandas
@@ -13,6 +13,9 @@ uvicorn
 # Database
 psycopg2-binary
 
+# PyTorch (CPU only)
+torch==2.7.1
+
 # NLP & AI
 sentence-transformers
 spacy
@@ -20,5 +23,5 @@ thefuzz
 vaderSentiment
 groq
 
-# Configuration & Utilities
+# Configuration
 python-dotenv
