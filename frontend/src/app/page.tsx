@@ -24,7 +24,7 @@ export default async function Page({
   let initialMessages: { role: "user" | "assistant"; content: string }[] = [];
   if (chatId) {
     const messages = await getChatSession(chatId);
-    initialMessages = messages.map(m => ({
+    initialMessages = messages.map((m: any) => ({
         ...m,
         role: (m.role === "user" || m.role === "assistant") ? m.role : "assistant"
     })) as { role: "user" | "assistant"; content: string }[];
