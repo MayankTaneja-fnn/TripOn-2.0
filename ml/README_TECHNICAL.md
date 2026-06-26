@@ -73,7 +73,10 @@ This is the "Brain" of the system.
         - Performs **NER-based city extraction** using spaCy.
         - Executes **Hybrid Retrieval** combining `pgvector` similarity and keyword (`ILIKE`) filtering.
         - Implements a **Dynamic Ranking Engine** that adjusts metric weights based on user intent.
-    - `evidence_aggregator.py`: Packages hotel data + reviews + drawbacks into a token-optimized JSON "Evidence Packet" using secure parameterized SQL.
+    - `evidence_aggregator.py`: 
+        - Packages hotel data and reviews into a token-optimized JSON "Evidence Packet" using secure parameterized SQL.
+        - **Strict Sentiment Enforcement**: Eliminates false-positives by hard-filtering retrieved reviews at the SQL level, ensuring only positive experiences (rating >= 4) are aggregated.
+        - **Intelligent Quote Extraction**: Uses a secondary LLM request to dynamically extract focused, 150-character positive snippets from the reviews for clean UI card display.
     - `models.py`: Singleton-based model access for efficient resource management.
 
 ---
