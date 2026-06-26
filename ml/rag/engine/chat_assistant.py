@@ -1,14 +1,18 @@
+import os
+import sys
+import uuid
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
 import json
 from rag.engine.hybrid_retriever import HybridRetriever
 from rag.engine.evidence_aggregator import EvidenceAggregator
-from rag.engine.chat_history import ChatHistory
 from rag.engine.models import get_groq_client
+from rag.engine.db_helper import save_chat_turn, get_recent_chat_history
 
 class ChatAssistant:
     def __init__(self, retriever: HybridRetriever, aggregator: EvidenceAggregator):
         self.retriever = retriever
         self.aggregator = aggregator
-        self.history = ChatHistory()
         self.client = get_groq_client()
 
     def explain_recommendation(self, hotel_name):
@@ -27,41 +31,34 @@ class ChatAssistant:
             "comparison": [h1, h2]
         }
 
-    def _generate_llm_response(self, evidence_packet, user_query):
-        """Generates a grounded conversational response using Llama 3 via Groq."""
+    def _generate_llm_response(self, evidence_packet, user_query, chat_id):
+        """Generates a grounded conversational response using Llama 3 via Groq with Markdown formatting."""
         
         # Optimize evidence packet for token efficiency
         simplified_evidence = []
-        for rec in evidence_packet["recommendations"]:
-            simplified_evidence.append({
-                "hotel": rec["hotel_name"],
-                "metrics": rec["metrics"],
-                "reasoning": rec["reasoning"],
-                "review_snippet": rec["evidence"][0] if rec["evidence"] else ""
-            })
+        if evidence_packet:
+            for rec in evidence_packet["recommendations"]:
+                simplified_evidence.append({
+                    "hotel_name": rec["hotel_name"]
+                })
         
         # Prepare messages: System + History + Current Query
         messages = [
-            {"role": "system", "content": "You are a helpful travel advisor grounded in factual data metrics. Use the provided evidence packet and conversation history to answer accurately."}
+            {"role": "system", "content": """You are a highly professional and concise travel advisor.
+CRITICAL RULE: The system has already found the hotels and is displaying them in detailed UI cards to the user.
+YOU MUST NOT list the hotels. YOU MUST NOT mention their names, scores, metrics, or evidence.
+YOUR ONLY JOB is to write a single, short introductory sentence (e.g. "Here are the top options that match your preferences:")
+IF YOU USE BULLET POINTS OR LIST HOTEL NAMES, YOU WILL BE PENALIZED."""}
         ]
-        messages.extend(self.history.get_messages())
+        
+        history = get_recent_chat_history(chat_id, max_turns=5)
+        messages.extend(history)
         
         prompt = f"""
         USER QUERY: "{user_query}"
 
-        INSTRUCTIONS:
-        1. Use ONLY the provided evidence packet and conversation history.
-        2. FOR EACH RECOMMENDATION:
-           - Explain WHY the hotel is recommended based on the data.
-           - Use the metrics (Rating, Trust Score, Wifi/Noise Scores) to justify the recommendation.
-           - Mention specific review evidence.
-           - Explicitly mention drawbacks if relevant to the user query.
-        3. If no hotels match, state that no information was found.
-
-        EVIDENCE PACKET:
-        {json.dumps(simplified_evidence, indent=2)}
-
-        Provide a conversational and helpful response. Use bullet points for recommendations.
+        Note: The UI will display the hotels automatically. 
+        DO NOT list them in your response. Just write a 1-sentence intro acknowledging their request.
         """
         messages.append({"role": "user", "content": prompt})
         
@@ -72,34 +69,55 @@ class ChatAssistant:
             )
             response = chat_completion.choices[0].message.content
             
-            # Update history
-            self.history.add_turn(user_query, response)
-            
-            return response
+            # Return both conversational response and structured data for UI rendering
+            return {
+                "reply": response,
+                "structured_data": evidence_packet["recommendations"] if evidence_packet and "recommendations" in evidence_packet else None
+            }
             
         except Exception as e:
-            return f"Error generating response: {str(e)}"
+            return {"reply": f"Error generating response: {str(e)}"}
 
-    def chat(self, user_query):
-        """Orchestrate the full conversational flow."""
+    def chat(self, user_query, user_id, chat_id=None):
+        """Orchestrate the full conversational flow and persist interactions."""
+        if chat_id is None:
+            chat_id = str(uuid.uuid4())
+            
+        # Check if new chat to generate tag
+        history = get_recent_chat_history(chat_id, max_turns=1)
+        is_new_chat = len(history) == 0
+        tag = None
+        
+        if is_new_chat:
+            try:
+                title_res = self.client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[{"role": "user", "content": f"Generate a short, maximum 50-character relevant tag or title for this travel query: '{user_query}'. Return ONLY the tag string, no quotes, no extra text."}],
+                    temperature=0.3
+                )
+                tag = title_res.choices[0].message.content.strip('"\'')
+            except Exception as e:
+                print(f"Error generating tag: {e}")
+            
         # 1. Retrieve candidates
         raw_results, query_embedding = self.retriever.search(user_query)
         tags = self.retriever._extract_intent(user_query).get("tags", [])
         
         if isinstance(raw_results, str):
-            return raw_results
+            save_chat_turn(chat_id, user_id, user_query, raw_results, tag=tag)
+            return {"reply": raw_results, "chat_id": chat_id}
             
-        # 2. Aggregate evidence with semantic relevance and keyword boosting
-        evidence_packet = self.aggregator.aggregate(raw_results, query_embedding=query_embedding, tags=tags)
+        # 2. Aggregate evidence
+        evidence_packet = self.aggregator.aggregate(raw_results, query=user_query, query_embedding=query_embedding, tags=tags)
         
         # 3. Generate conversational response
-        return self._generate_llm_response(evidence_packet, user_query)
+        response = self._generate_llm_response(evidence_packet, user_query, chat_id)
+        
+        # 4. Persist to DB
+        save_chat_turn(chat_id, user_id, user_query, response, tag=tag)
+        
+        return {"reply": response["reply"], "structured_data": response.get("structured_data"), "chat_id": chat_id}
 
 if __name__ == "__main__":
-    # Dependency Injection
-    retriever = HybridRetriever()
-    aggregator = EvidenceAggregator()
-    assistant = ChatAssistant(retriever, aggregator)
-    
-    # Test query
-    print(assistant.chat("quiet hotel in Delhi"))
+    print("This script is not intended for direct interactive use.")
+    print("Please run the API server (e.g., 'python ml/api.py') to interface with the frontend.")

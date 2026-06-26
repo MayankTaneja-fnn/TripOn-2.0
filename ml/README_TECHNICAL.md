@@ -78,14 +78,24 @@ This is the "Brain" of the system.
 
 ---
 
-## 5. Security & Configuration
+## 5. Conversational Memory & Formatting
+
+The orchestration flow incorporates PostgreSQL (`chat_history` table) to maintain seamless conversational memory across user sessions. 
+
+- **Session Context Injection**: `ChatAssistant` looks up the last 5 conversation turns via `db_helper.get_recent_chat_history(chat_id)` and injects them into the Llama-3 prompt so follow-up queries implicitly understand the context.
+- **LLM Title Generation**: For new sessions, a secondary Llama-3 request dynamically generates a concise (<50 char) "relevant tag" (title) from the first prompt. This tag is stored within the chat history and powers the UI sidebar navigation.
+- **Strict Formatting Guardrails**: The final LLM response generation step is restricted by a strict system prompt. The model is explicitly barred from generating lists, bullet points, hotel names, or scoring metrics. Its sole responsibility is to provide a brief 1-sentence introduction. The rich structured data (extracted via `evidence_aggregator.py`) is passed alongside this single sentence so the React frontend handles the presentation entirely.
+
+---
+
+## 6. Security & Configuration
 All sensitive configurations (Database credentials, Groq API keys) are **never hardcoded**.
 - **Management**: Credentials must be stored in an `ml/.env` file.
 - **Loading**: Every script utilizes `from dotenv import load_dotenv` followed by `load_dotenv()` to securely load variables via `os.getenv()`.
 
 ---
 
-## 6. Directory & File Breakdown
+## 7. Directory & File Breakdown
 
 ### **`rag/` (Retrieval-Augmented Generation)**
 - **`engine/`**:
@@ -111,7 +121,7 @@ All sensitive configurations (Database credentials, Groq API keys) are **never h
 
 ---
 
-## 7. Project Flowcharts
+## 8. Project Flowcharts
 
 ### **A. Data Ingestion & Scoring Flow**
 ```mermaid
@@ -136,7 +146,7 @@ graph TD
 
 ---
 
-## 8. Technical Stack Summary
+## 9. Technical Stack Summary
 - **Languages:** Python 3.12, SQL.
 - **Database:** PostgreSQL + `pgvector` (Supabase).
 - **ML Models:** `all-MiniLM-L6-v2` (Embeddings), `Llama 3.3-70b` (Reasoning).

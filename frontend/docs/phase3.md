@@ -16,6 +16,8 @@
 │  - Landing Page (Hero):                                                                               │
 │      - AI Chatbot Interface (half-screen, persistent history).                                        │
 │      - Authentication Gate: Chat interaction requires user login.                                     │
+│      - Formatted Responses: Markdown rendering (bolding, bullets).                                    │
+│  - Chat History: Dynamic loading of previous sessions via Sidebar.                                    │
 │  - Landing Page (Below Fold):                                                                         │
 │      - Dynamic Content: Recently explored hotels (logged-in users) OR Trending hotels (visitors).     │
 │  - Footer: Standard site footer.                                                                      │
@@ -23,21 +25,9 @@
 │ 4. Backend/Database Changes                                                                           │
 │  - Database:                                                                                          │
 │      - Utilize existing schema (hotels, reviews, etc.).                                               │
-│      - Create users table: ID, username, email, hashed password, profile details.                     │
-│      - Create chat_history and user_views tables (linked to user_id).                                 │
+│      - Create users table, chat_history, user_views.                                                  │
 │  - Functionality:                                                                                     │
 │      - Authentication-gated chat access.                                                              │
-│      - Fetching and hydration of chat history and recently viewed hotels upon user login.             │
+│      - Persistent chat sessions with context retention.                                               │
 │                                                                                                       │
-│ 5. Implementation Steps                                                                               │
-│  1. Database Schema: Create users, chat_history, and user_views tables in Supabase.                   │
-│  2. Auth Setup: Configure NextAuth/Supabase Auth.                                                     │
-│  3. Frontend Architecture: Initialize Next.js, implement Layout (Navbar/Footer).                      │
-│  4. Landing Page: Develop Chatbot interface + Trending/Recent section logic.                          │
-│  5. API Integration: Connect components to Python backend, implement user-specific data fetching.     │
-│                                                                                                       │
-│ 6. Verification & Testing                                                                             │
-│  - Login/Signup flow and auth-gated chat access.                                                      │
-│  - Correct loading of user-specific history/viewed hotels after login.                                │
-│  - UI responsiveness and design fidelity.                                                             │
-│                                               
+│ 5. Status: COMPLETED                                                                                  │

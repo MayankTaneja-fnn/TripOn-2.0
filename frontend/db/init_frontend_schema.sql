@@ -52,10 +52,9 @@ CREATE TABLE IF NOT EXISTS public.verification_tokens (
 
 -- 3. Chat History Table
 CREATE TABLE IF NOT EXISTS chat_history (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    id UUID PRIMARY KEY,
     user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-    query TEXT NOT NULL,
-    response TEXT NOT NULL,
+    messages JSONB NOT NULL DEFAULT '[]'::jsonb,
     timestamp TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -63,6 +62,7 @@ CREATE TABLE IF NOT EXISTS chat_history (
 CREATE TABLE IF NOT EXISTS user_views (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-    hotel_id UUID NOT NULL, -- Assuming linked to hotels table
-    viewed_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+    hotel_id INTEGER REFERENCES hotels(id) ON DELETE CASCADE NOT NULL,
+    viewed_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    UNIQUE(user_id, hotel_id)
 );

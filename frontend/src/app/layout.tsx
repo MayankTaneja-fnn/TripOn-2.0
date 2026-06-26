@@ -1,22 +1,24 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  themeColor: "#0a0f1e",
+};
 
 export const metadata: Metadata = {
-  title: "TripOn",
-  description: "Your AI travel companion",
+  title: "TripOn — AI-Powered Travel Companion",
+  description:
+    "Discover your perfect stay with TripOn. Get AI-powered hotel recommendations, personalized itineraries, and real traveler insights — all in one place.",
+  keywords: ["travel", "AI", "hotels", "itinerary", "trip planner"],
 };
 
 export default function RootLayout({
@@ -25,11 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className={`${inter.variable} h-full`}>
+      <body className="min-h-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased font-[var(--font-inter)]">
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />

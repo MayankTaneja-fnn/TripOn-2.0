@@ -5,7 +5,7 @@ import os
 import sys
 
 # Ensure ml is in path
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(os.path.dirname(__file__))
 
 from rag.engine.chat_assistant import ChatAssistant
 from rag.engine.hybrid_retriever import HybridRetriever
@@ -27,9 +27,12 @@ retriever = HybridRetriever()
 aggregator = EvidenceAggregator()
 assistant = ChatAssistant(retriever, aggregator)
 
+from typing import Optional
+
 class ChatRequest(BaseModel):
     message: str
     user_id: str
+    chat_id: Optional[str] = None
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
@@ -38,8 +41,8 @@ async def chat(request: ChatRequest):
         if not request.message:
             return {"reply": "Please provide a message."}
         
-        response = assistant.chat(request.message)
-        return {"reply": response}
+        response = assistant.chat(request.message, user_id=request.user_id, chat_id=request.chat_id)
+        return response
     except Exception as e:
         print(f"Error details: {e}")
         raise HTTPException(status_code=500, detail=str(e))

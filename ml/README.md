@@ -12,7 +12,9 @@ Unlike standard travel bots that rely on basic keyword matching, TripOn 2.0 leve
 - **Hybrid Search**: Combines semantic vector search (`pgvector`) with keyword boosting (`ILIKE`) for robust retrieval.
 - **Dynamic Ranking**: Automatically adjusts metric weights based on user intent (e.g., boosting 'Wifi' when searching for work-friendly hotels).
 - **NER-based City Extraction**: Uses spaCy (`en_core_web_sm`) to robustly identify cities in user queries.
-- **Conversational Memory**: Maintains session context using an in-memory sliding-window buffer. Note: This implementation is volatile and clears upon application restart.
+- **Strict Sentiment Enforcement**: Eliminates false-positives in semantic search by hard-filtering retrieved reviews to ensure they only reflect positive experiences (rating >= 4).
+- **Intelligent Quote Extraction**: Dynamically extracts focused, 150-character positive snippets using a secondary LLM request for clean UI card display.
+- **Conversational Memory**: Maintains persistent, user-specific chat history using PostgreSQL to provide seamless conversation continuity across sessions.
 - **Transparency Engine**: Detailed metric breakdowns (Trust Score, Aspect Scores) available to explain *why* recommendations are made.
 
 ## Security & Configuration
@@ -51,8 +53,8 @@ graph TD
 - `ml/tests/`: Integration tests.
 
 ## Setup & Running
-1. **Prerequisites**: Ensure Python 3.12+ is installed.
-2. **Environment**: Create `ml/.env` and add:
+1.  **Prerequisites**: Ensure Python 3.12+ is installed.
+2.  **Environment**: Create `ml/.env` and add:
    ```
    DB_NAME=...
    DB_USER=...
@@ -61,13 +63,13 @@ graph TD
    DB_PORT=...
    GROQ_API_KEY=...
    ```
-3. **Install Dependencies**:
+3.  **Install Dependencies**:
    ```bash
    pip install -r ml/requirements.txt
    python -m spacy download en_core_web_sm
    ```
-4. **Execution**: Ensure the `ml` folder is in your `PYTHONPATH` before running scripts:
+4.  **Execution**: The backend API server must be run to interact with the frontend. Direct execution of `chat_assistant.py` is not supported for interactive chat.
    ```bash
    $env:PYTHONPATH = "C:\path\to\TripOn2.0\ml"
-   python ml/rag/engine/chat_assistant.py
+   python ml/api.py
    ```

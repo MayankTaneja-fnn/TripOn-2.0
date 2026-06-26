@@ -1,5 +1,9 @@
 import os
 from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
 import psycopg2
 from psycopg2 import pool
 import json
@@ -17,12 +21,43 @@ DB_CONFIG = {
 
 db_pool = psycopg2.pool.ThreadedConnectionPool(1, 10, **DB_CONFIG)
 
+from rag.engine.models import get_groq_client
+
 class EvidenceAggregator:
     def _get_conn(self):
         return db_pool.getconn()
 
     def _put_conn(self, conn):
         db_pool.putconn(conn)
+        
+    def _extract_short_quotes(self, hotel_reviews_map, query):
+        if not hotel_reviews_map: return {}
+        try:
+            client = get_groq_client()
+            prompt = f"""User query: '{query}'
+            
+Extract exactly ONE POSITIVE, compelling quote (maximum 150 characters) from the provided reviews for each hotel that best answers the query. 
+Ensure the quote highlights a good experience.
+Return ONLY a valid JSON object mapping the exact hotel_name to the extracted quote string. DO NOT use markdown code blocks or extra text.
+
+Reviews:
+"""
+            for h, revs in hotel_reviews_map.items():
+                prompt += f"- {h}: {' | '.join(revs)}\n"
+                
+            res = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are a helpful JSON-only API that extracts positive quotes. Output valid JSON."},
+                    {"role": "user", "content": prompt}
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.1
+            )
+            return json.loads(res.choices[0].message.content)
+        except Exception as e:
+            print(f"Quote extraction failed: {e}")
+            return {}
 
     def get_hotel_details(self, hotel_name):
         """Fetches all metrics and drawbacks for a single hotel."""
@@ -91,7 +126,7 @@ class EvidenceAggregator:
         finally:
             self._put_conn(conn)
 
-    def aggregate(self, recommendations, query_embedding=None, tags=None):
+    def aggregate(self, recommendations, query=None, query_embedding=None, tags=None):
         """
         Takes raw retrieval results and aggregates supporting evidence with keyword boosting
         and context-aware metrics.
@@ -119,15 +154,16 @@ class EvidenceAggregator:
                 boost_keywords.extend(KEYWORD_MAP.get(tag, []))
         
         conn = self._get_conn()
+        hotel_reviews_map = {}
         try:
             with conn.cursor() as cur:
                 for hotel_name, reasoning, score in recommendations:
-                    query = """
+                    query_sql = """
                     SELECT id, rating_avg, trust_score, cleanliness_score, service_score, 
                            food_score, wifi_score, location_score, noise_score, safety_score
                     FROM hotels WHERE name = %s
                     """
-                    cur.execute(query, (hotel_name,))
+                    cur.execute(query_sql, (hotel_name,))
                     h_data = cur.fetchone()
                     
                     if not h_data: continue
@@ -151,7 +187,7 @@ class EvidenceAggregator:
                         review_query = f"""
                         SELECT review_text 
                         FROM reviews 
-                        WHERE hotel_id = %s {k_filter}
+                        WHERE hotel_id = %s AND rating >= 4 {k_filter}
                         ORDER BY embedding <=> %s 
                         LIMIT 2
                         """
@@ -161,27 +197,40 @@ class EvidenceAggregator:
                         review_query = """
                         SELECT review_text 
                         FROM reviews 
-                        WHERE hotel_id = %s AND embedding IS NOT NULL
+                        WHERE hotel_id = %s AND rating >= 4 AND embedding IS NOT NULL
                         ORDER BY embedding <=> %s 
                         LIMIT 2
                         """
                         cur.execute(review_query, (h_id, "[" + ",".join(map(str, query_embedding)) + "]"))
                     else:
-                        review_query = "SELECT review_text FROM reviews WHERE hotel_id = %s LIMIT 2"
+                        review_query = "SELECT review_text FROM reviews WHERE hotel_id = %s AND rating >= 4 LIMIT 2"
                         cur.execute(review_query, (h_id,))
 
-                    # Truncate reviews to be precise
-                    reviews = [(r[0][:150] + '...') if len(r[0]) > 150 else r[0] for r in cur.fetchall()]
+                    # Collect raw reviews for LLM processing
+                    raw_reviews = [r[0] for r in cur.fetchall()]
+                    hotel_reviews_map[hotel_name] = raw_reviews
 
                     evidence_packet["recommendations"].append({
+                        "hotel_id": h_id,
                         "hotel_name": hotel_name,
                         "score": round(float(score), 2),
                         "metrics": metrics,
                         "reasoning": reasoning,
-                        "evidence": reviews,
+                        "evidence": raw_reviews, # Will be replaced below
                         "drawbacks": [aspect_names[i] for i, s in enumerate(aspects) if s < 6.0]
                     })
         finally:
             self._put_conn(conn)
+            
+        # Extract 150-char quotes using LLM
+        if query and hotel_reviews_map:
+            short_quotes = self._extract_short_quotes(hotel_reviews_map, query)
+            for rec in evidence_packet["recommendations"]:
+                hotel_name = rec["hotel_name"]
+                if hotel_name in short_quotes and short_quotes[hotel_name]:
+                    rec["evidence"] = [short_quotes[hotel_name]]
+                else:
+                    # Fallback to truncated review
+                    rec["evidence"] = [(rec["evidence"][0][:150] + "...") if rec["evidence"] and len(rec["evidence"][0]) > 150 else (rec["evidence"][0] if rec["evidence"] else "")]
         
         return evidence_packet

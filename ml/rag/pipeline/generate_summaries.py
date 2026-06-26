@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
 import os
 import psycopg2
 from psycopg2 import extras
@@ -72,15 +76,22 @@ def generate_summaries():
     
     conn = psycopg2.connect(**DB_CONFIG)
     cur = conn.cursor()
+
+    # Increase statement timeout to 5 minutes for this heavy query
+    cur.execute("SET statement_timeout = '300s';")
     
     # Query hotel data with aspect scores
+    # Uses LATERAL join instead of correlated subquery for better performance
     query = """
     SELECT h.id, h.name, h.rating_avg, h.trust_score, 
            h.cleanliness_score, h.service_score, h.food_score,
            h.wifi_score, h.location_score, h.noise_score, h.safety_score,
-           (SELECT array_agg(r.review_text) 
-            FROM (SELECT review_text FROM reviews WHERE hotel_id = h.id LIMIT 20) r) as sample_reviews
+           r_agg.sample_reviews
     FROM hotels h
+    LEFT JOIN LATERAL (
+        SELECT array_agg(sub.review_text) AS sample_reviews
+        FROM (SELECT review_text FROM reviews WHERE hotel_id = h.id LIMIT 20) sub
+    ) r_agg ON true
     """
     cur.execute(query)
     hotels = cur.fetchall()
