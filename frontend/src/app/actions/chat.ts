@@ -17,9 +17,10 @@ export async function getUserChatHistory(userEmail: string) {
     .eq("email", userEmail)
     .single();
 
-  if (userError || !userData) {
-    return [];
+  if (userError) {
+    throw new Error("Failed to authenticate user for chat history.");
   }
+  if (!userData) return [];
 
   // 2. Fetch distinct chat sessions using UUID
   // Assuming 'id' is the session identifier
@@ -31,7 +32,7 @@ export async function getUserChatHistory(userEmail: string) {
 
   if (error) {
     console.error("Error fetching chat history:", JSON.stringify(error, null, 2));
-    return [];
+    throw new Error("Failed to fetch chat history. We'll be back soon.");
   }
 
   return data.map((chat) => {
@@ -62,9 +63,10 @@ export async function getChatSession(chatId: string) {
     .eq("id", chatId)
     .maybeSingle(); // Use maybeSingle to prevent PGRST116 error on 0 rows
 
-  if (error || !data) {
-    return [];
+  if (error) {
+    throw new Error("Failed to load chat session. We'll be back soon.");
   }
+  if (!data) return [];
 
   // Return the messages array directly
   if (data.messages && Array.isArray(data.messages)) {

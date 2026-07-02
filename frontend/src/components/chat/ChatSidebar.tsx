@@ -11,6 +11,8 @@ import { Session } from "next-auth";
 export default function ChatSidebar({ session }: { session: Session | null }) {
   const [collapsed, setCollapsed] = useState(false);
   const [history, setHistory] = useState<{ id: string; label: string }[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const searchParams = useSearchParams();
   const chatId = searchParams.get("chatId");
   const router = useRouter();
@@ -18,8 +20,16 @@ export default function ChatSidebar({ session }: { session: Session | null }) {
   useEffect(() => {
     async function loadHistory() {
       if (session?.user?.email) {
-        const data = await getUserChatHistory(session.user.email!);
-        setHistory(data);
+        setLoading(true);
+        setError(false);
+        try {
+          const data = await getUserChatHistory(session.user.email!);
+          setHistory(data);
+        } catch (e) {
+          setError(true);
+        } finally {
+          setLoading(false);
+        }
       }
     }
     loadHistory();
@@ -66,7 +76,13 @@ export default function ChatSidebar({ session }: { session: Session | null }) {
 
               {/* History Items */}
               <div className="flex-grow space-y-1.5 overflow-y-auto">
-                {history.map((item) => (
+                {loading && (
+                  <div className="text-center py-4 text-sm text-text-muted animate-pulse">Loading history...</div>
+                )}
+                {error && !loading && (
+                  <div className="text-center py-4 text-sm text-red-500 text-balance">Oops! We'll be back soon. Failed to load history.</div>
+                )}
+                {!loading && !error && history.map((item) => (
                   <div key={item.id} className="flex items-center group">
                     <Link
                       href={`/?chatId=${item.id}`}

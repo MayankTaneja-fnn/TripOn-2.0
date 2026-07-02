@@ -33,3 +33,8 @@ export async function signup(formData: FormData) {
 
   return { success: true };
 }
+
+export async function login(formData: FormData) {
+  const { signIn } = await import("@/lib/auth");
+  await signIn("credentials", formData);
+}

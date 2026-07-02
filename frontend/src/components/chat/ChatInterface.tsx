@@ -134,7 +134,7 @@ export default function ChatInterface({
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, I couldn't connect to the server. Please try again.",
+          content: "Oops! We couldn't connect to the server. An unexpected error occurred. Don't worry, our team has been notified and we'll be back soon!",
         },
       ]);
     } finally {

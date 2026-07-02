@@ -17,7 +17,7 @@ export async function getRecentHotels(userId: string) {
 
   if (error) {
     console.error("Error fetching recent hotels:", error);
-    return [];
+    throw new Error("Failed to fetch recent hotels. We'll be back soon.");
   }
 
   return (data as any[]).map((view) => ({
@@ -64,7 +64,7 @@ export async function getAllHotels(options: { search?: string, limit?: number, o
     
   if (error) {
     console.error("Error fetching hotels:", error);
-    return [];
+    throw new Error("Failed to fetch hotels. We'll be back soon.");
   }
   return data || [];
 }
@@ -73,7 +73,7 @@ export async function getHotelDetails(id: string) {
   const { data, error } = await supabase.from("hotels").select("*").eq("id", id).single();
   if (error) {
     console.error("Error fetching hotel details:", error);
-    return null;
+    throw new Error("Failed to fetch hotel details. We'll be back soon.");
   }
   
   const { data: reviews } = await supabase.from("reviews").select("review_text, rating, review_date").eq("hotel_id", id).order('rating', { ascending: false }).limit(10);

@@ -1,10 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import { signup } from "@/app/actions/auth";
 import Link from "next/link";
-import { User, Mail, Lock } from "lucide-react";
+import { User, Mail, Lock, Loader2 } from "lucide-react";
 
 export default function SignupForm() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    const formData = new FormData(e.currentTarget);
+    try {
+      await signup(formData);
+    } catch (err) {
+      setError("Oops! We couldn't connect. Please try again soon.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="glass-card p-8 w-full max-w-md space-y-6">
       {/* Header */}
@@ -16,12 +34,7 @@ export default function SignupForm() {
       </div>
 
       {/* Form */}
-      <form
-        action={async (formData) => {
-          await signup(formData);
-        }}
-        className="space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Username */}
         <div className="relative">
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">
@@ -66,13 +79,19 @@ export default function SignupForm() {
           />
         </div>
 
+        {error && (
+          <p className="text-red-500 text-sm text-center">{error}</p>
+        )}
+
         {/* Create Account Button */}
         <button
           type="submit"
           id="signup-submit"
-          className="w-full py-3 rounded-lg bg-accent-blue text-white font-semibold text-sm hover:bg-accent-blue-hover transition-all cursor-pointer"
+          disabled={loading}
+          className="w-full py-3 rounded-lg bg-accent-blue text-white font-semibold text-sm hover:bg-accent-blue-hover transition-all cursor-pointer flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          Create Account
+          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+          {loading ? "Creating..." : "Create Account"}
         </button>
       </form>
 

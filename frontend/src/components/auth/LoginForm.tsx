@@ -1,7 +1,24 @@
-import { signIn } from "@/lib/auth";
-import Link from "next/link";
-import { Mail, Lock } from "lucide-react";
+"use client";
 
+import { login } from "@/app/actions/auth";
+import Link from "next/link";
+import { Mail, Lock, Loader2 } from "lucide-react";
+import { useFormStatus } from "react-dom";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      id="login-submit"
+      disabled={pending}
+      className="w-full py-3 rounded-lg bg-accent-blue text-white font-semibold text-sm hover:bg-accent-blue-hover transition-all cursor-pointer flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+    >
+      {pending ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+      {pending ? "Signing in..." : "Sign In"}
+    </button>
+  );
+}
 export default function LoginForm() {
   return (
     <div className="glass-card p-8 w-full max-w-md space-y-6">
@@ -14,13 +31,7 @@ export default function LoginForm() {
       </div>
 
       {/* Form */}
-      <form
-        action={async (formData) => {
-          "use server";
-          await signIn("credentials", formData);
-        }}
-        className="space-y-4"
-      >
+      <form action={login} className="space-y-4">
         {/* Email */}
         <div className="relative">
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">
@@ -51,14 +62,7 @@ export default function LoginForm() {
           />
         </div>
 
-        {/* Sign In Button */}
-        <button
-          type="submit"
-          id="login-submit"
-          className="w-full py-3 rounded-lg bg-accent-blue text-white font-semibold text-sm hover:bg-accent-blue-hover transition-all cursor-pointer"
-        >
-          Sign In
-        </button>
+        <SubmitButton />
       </form>
 
       {/* Footer Link */}
