@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 import psycopg2
 from psycopg2 import pool
-from rag.engine.models import get_model, get_reranker
+from rag.engine.models import get_model
 import numpy as np
 import json
 import spacy
@@ -29,7 +29,6 @@ _embedding_cache = {}
 class HybridRetriever:
     def __init__(self):
         self.model = get_model()
-        self.reranker = get_reranker()
         try:
             self.nlp = spacy.load("en_core_web_sm", disable=["parser", "lemmatizer", "tagger", "attribute_ruler", "tok2vec"])
         except OSError:
@@ -135,18 +134,13 @@ class HybridRetriever:
             if not candidate_ids:
                 return "No hotels found matching criteria.", None
                 
-            # 2. Rerank using HOTEL SUMMARIES (Stage 2)
-            summary_query = "SELECT hotel_id, summary FROM hotel_summaries WHERE hotel_id IN %s"
-            with conn.cursor() as cur:
-                cur.execute(summary_query, (tuple(candidate_ids),))
-                summary_results = cur.fetchall()
-            
-            candidate_summaries = {row[0]: row[1] for row in summary_results}
-            
-            # Cross-Encoder Reranking
-            pairs = [(user_query, candidate_summaries[h_id]) for h_id in candidate_ids if h_id in candidate_summaries]
-            rerank_scores = self.reranker.predict(pairs)
-            rerank_map = {h_id: float(score) for h_id, score in zip([h_id for h_id in candidate_ids if h_id in candidate_summaries], rerank_scores)}
+            # Max semantic similarity per hotel
+            rerank_map = {}
+            for row in review_results:
+                h_id = row[0]
+                sem_sim = float(row[2])
+                if h_id not in rerank_map or sem_sim > rerank_map[h_id]:
+                    rerank_map[h_id] = sem_sim
             
             # 3. Final Ranking with metrics
             ranking_query = """

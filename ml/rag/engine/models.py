@@ -56,32 +56,6 @@ class ONNXEmbeddingModel:
             
         return embeddings
 
-class ONNXReranker:
-    def __init__(self, model_name="Xenova/ms-marco-MiniLM-L-6-v2"):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model_path = hf_hub_download(repo_id=model_name, filename="onnx/model.onnx")
-        
-        sess_options = ort.SessionOptions()
-        sess_options.intra_op_num_threads = 1
-        sess_options.inter_op_num_threads = 1
-        self.session = ort.InferenceSession(model_path, sess_options=sess_options, providers=["CPUExecutionProvider"])
-        
-    def predict(self, pairs):
-        inputs = self.tokenizer(pairs, padding=True, truncation=True, return_tensors="np")
-        ort_inputs = {
-            "input_ids": inputs["input_ids"].astype(np.int64),
-            "attention_mask": inputs["attention_mask"].astype(np.int64)
-        }
-        if "token_type_ids" in inputs:
-            ort_inputs["token_type_ids"] = inputs["token_type_ids"].astype(np.int64)
-            
-        outputs = self.session.run(None, ort_inputs)
-        logits = outputs[0]
-        
-        if logits.shape[1] == 1:
-            return logits.flatten()
-        else:
-            return logits[:, 1]
 
 def get_model():
     global _model
@@ -89,11 +63,6 @@ def get_model():
         _model = ONNXEmbeddingModel()
     return _model
 
-def get_reranker():
-    global _reranker
-    if _reranker is None:
-        _reranker = ONNXReranker()
-    return _reranker
 def get_groq_client():
     global _groq_client
     if _groq_client is None:
