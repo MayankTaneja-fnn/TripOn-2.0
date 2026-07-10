@@ -19,7 +19,7 @@ DB_CONFIG = {
     "port": os.getenv("DB_PORT")
 }
 
-db_pool = psycopg2.pool.ThreadedConnectionPool(1, 10, **DB_CONFIG)
+db_pool = psycopg2.pool.ThreadedConnectionPool(1, 3, **DB_CONFIG)
 
 from rag.engine.models import get_groq_client
 

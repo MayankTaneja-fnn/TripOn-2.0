@@ -22,7 +22,11 @@ class ONNXEmbeddingModel:
     def __init__(self, model_name="Xenova/all-MiniLM-L6-v2"):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         model_path = hf_hub_download(repo_id=model_name, filename="onnx/model.onnx")
-        self.session = ort.InferenceSession(model_path)
+        
+        sess_options = ort.SessionOptions()
+        sess_options.intra_op_num_threads = 1
+        sess_options.inter_op_num_threads = 1
+        self.session = ort.InferenceSession(model_path, sess_options=sess_options, providers=["CPUExecutionProvider"])
         
     def encode(self, texts, normalize_embeddings=True):
         if isinstance(texts, str):
@@ -56,7 +60,11 @@ class ONNXReranker:
     def __init__(self, model_name="Xenova/ms-marco-MiniLM-L-6-v2"):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         model_path = hf_hub_download(repo_id=model_name, filename="onnx/model.onnx")
-        self.session = ort.InferenceSession(model_path)
+        
+        sess_options = ort.SessionOptions()
+        sess_options.intra_op_num_threads = 1
+        sess_options.inter_op_num_threads = 1
+        self.session = ort.InferenceSession(model_path, sess_options=sess_options, providers=["CPUExecutionProvider"])
         
     def predict(self, pairs):
         inputs = self.tokenizer(pairs, padding=True, truncation=True, return_tensors="np")

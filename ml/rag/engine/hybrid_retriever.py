@@ -23,7 +23,7 @@ DB_CONFIG = {
 }
 
 # Create connection pool
-db_pool = psycopg2.pool.ThreadedConnectionPool(1, 10, **DB_CONFIG)
+db_pool = psycopg2.pool.ThreadedConnectionPool(1, 3, **DB_CONFIG)
 _embedding_cache = {}
 
 class HybridRetriever:
@@ -31,11 +31,11 @@ class HybridRetriever:
         self.model = get_model()
         self.reranker = get_reranker()
         try:
-            self.nlp = spacy.load("en_core_web_sm")
+            self.nlp = spacy.load("en_core_web_sm", disable=["parser", "lemmatizer", "tagger", "attribute_ruler", "tok2vec"])
         except OSError:
             from spacy.cli import download
             download("en_core_web_sm")
-            self.nlp = spacy.load("en_core_web_sm")
+            self.nlp = spacy.load("en_core_web_sm", disable=["parser", "lemmatizer", "tagger", "attribute_ruler", "tok2vec"])
         
         # Semantic Intent Data
         self.intent_map = {

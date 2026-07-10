@@ -20,18 +20,18 @@ interface HotelRecommendationCardProps {
 import Link from "next/link";
 
 export default function HotelRecommendationCard({ hotel }: HotelRecommendationCardProps) {
-  useEffect(() => {
+  const handleClick = () => {
     if (hotel.hotel_id) {
       recordHotelView(hotel.hotel_id).catch(console.error);
     }
-  }, [hotel.hotel_id]);
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
     >
-      <Link href={`/hotels/${hotel.hotel_id}`} target="_blank" className="block bg-gradient-to-b from-[#1E1E24] to-[#16161A] border border-white/[0.08] rounded-xl p-5 my-3 shadow-lg hover:border-accent-blue/50 hover:shadow-accent-blue/10 transition-all cursor-pointer">
+      <Link href={`/hotels/${hotel.hotel_id}`} target="_blank" onClick={handleClick} className="block bg-gradient-to-b from-[#1E1E24] to-[#16161A] border border-white/[0.08] rounded-xl p-5 my-3 shadow-lg hover:border-accent-blue/50 hover:shadow-accent-blue/10 transition-all cursor-pointer">
         <div className="flex justify-between items-start mb-4">
           <h4 className="text-white font-bold text-lg leading-tight group-hover:text-accent-blue transition-colors">{hotel.hotel_name}</h4>
           <div className="bg-accent-blue/20 text-accent-blue px-2.5 py-1 rounded-md text-xs font-mono font-bold border border-accent-blue/20 whitespace-nowrap ml-3">
