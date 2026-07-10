@@ -4,11 +4,12 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-from optimum.onnxruntime import ORTModelForFeatureExtraction, ORTModelForSequenceClassification
+import os
+from huggingface_hub import hf_hub_download
+import onnxruntime as ort
 from transformers import AutoTokenizer
 import numpy as np
 from groq import Groq
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,15 +21,23 @@ _groq_client = None
 class ONNXEmbeddingModel:
     def __init__(self, model_name="Xenova/all-MiniLM-L6-v2"):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = ORTModelForFeatureExtraction.from_pretrained(model_name)
+        model_path = hf_hub_download(repo_id=model_name, filename="onnx/model.onnx")
+        self.session = ort.InferenceSession(model_path)
         
     def encode(self, texts, normalize_embeddings=True):
         if isinstance(texts, str):
             texts = [texts]
         inputs = self.tokenizer(texts, padding=True, truncation=True, return_tensors="np")
-        outputs = self.model(**inputs)
         
-        last_hidden_states = outputs.last_hidden_state
+        ort_inputs = {
+            "input_ids": inputs["input_ids"].astype(np.int64),
+            "attention_mask": inputs["attention_mask"].astype(np.int64)
+        }
+        if "token_type_ids" in inputs:
+            ort_inputs["token_type_ids"] = inputs["token_type_ids"].astype(np.int64)
+            
+        outputs = self.session.run(None, ort_inputs)
+        last_hidden_states = outputs[0]
         attention_mask = inputs["attention_mask"]
         
         # Mean pooling
@@ -46,13 +55,21 @@ class ONNXEmbeddingModel:
 class ONNXReranker:
     def __init__(self, model_name="Xenova/ms-marco-MiniLM-L-6-v2"):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = ORTModelForSequenceClassification.from_pretrained(model_name)
+        model_path = hf_hub_download(repo_id=model_name, filename="onnx/model.onnx")
+        self.session = ort.InferenceSession(model_path)
         
     def predict(self, pairs):
         inputs = self.tokenizer(pairs, padding=True, truncation=True, return_tensors="np")
-        outputs = self.model(**inputs)
+        ort_inputs = {
+            "input_ids": inputs["input_ids"].astype(np.int64),
+            "attention_mask": inputs["attention_mask"].astype(np.int64)
+        }
+        if "token_type_ids" in inputs:
+            ort_inputs["token_type_ids"] = inputs["token_type_ids"].astype(np.int64)
+            
+        outputs = self.session.run(None, ort_inputs)
+        logits = outputs[0]
         
-        logits = outputs.logits
         if logits.shape[1] == 1:
             return logits.flatten()
         else:

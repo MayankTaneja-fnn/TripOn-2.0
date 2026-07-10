@@ -14,8 +14,8 @@ psycopg2-binary
 
 # ONNX Runtime (CPU)
 onnxruntime
-optimum[onnxruntime]
 transformers
+huggingface_hub
 
 # NLP & AI
 spacy
