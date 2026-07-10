@@ -47,6 +47,10 @@ async def chat(request: ChatRequest):
         print(f"Error details: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "message": "TripOn Backend is running"}
+
 if __name__ == "__main__":
     import uvicorn
     import os

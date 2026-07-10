@@ -40,7 +40,7 @@ def validate_retrieval():
         print(f"\n--- Query: {query_text} ---")
         
         # 1. Encode query
-        query_embedding = model.encode(query_text, normalize_embeddings=True).tolist()
+        query_embedding = model.encode(query_text, normalize_embeddings=True)[0].tolist()
         
         # 2. Search using pgvector cosine similarity (1 - distance)
         # Convert list to string representation for pgvector

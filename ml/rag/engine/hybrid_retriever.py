@@ -92,7 +92,7 @@ class HybridRetriever:
         
         # Use cache
         if user_query not in _embedding_cache:
-            _embedding_cache[user_query] = self.model.encode(user_query, normalize_embeddings=True).tolist()
+            _embedding_cache[user_query] = self.model.encode(user_query, normalize_embeddings=True)[0].tolist()
         
         query_embedding = _embedding_cache[user_query]
         
