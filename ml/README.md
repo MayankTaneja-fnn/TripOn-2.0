@@ -39,8 +39,9 @@ graph TD
 ## Technical Stack
 - **Languages**: Python
 - **Database**: PostgreSQL with `pgvector`
-- **Embeddings**: `all-MiniLM-L6-v2` (Bi-Encoder)
-- **Reranking**: `cross-encoder/ms-marco-MiniLM-L-6-v2`
+- **Embeddings**: `Xenova/all-MiniLM-L6-v2` (ONNX)
+- **Reranking**: `Xenova/ms-marco-MiniLM-L-6-v2` (ONNX)
+- **ML Runtime**: `onnxruntime` and `optimum` (No PyTorch required, saves memory)
 - **LLM**: Llama 3.3 (via Groq API)
 - **NLP**: spaCy (`en_core_web_sm`) for Entity Recognition
 - **Environment Management**: `python-dotenv`

@@ -55,7 +55,7 @@ We use NLP to quantify "how good" a hotel is across 7 specific categories (Clean
 ### A. Semantic Vectorization (Embeddings)
 To allow "meaning-based" search, we convert text into numerical vectors.
 
-- **Transformer Model:** `all-MiniLM-L6-v2` (via `sentence-transformers`).
+- **Transformer Model:** `Xenova/all-MiniLM-L6-v2` (via `optimum` and `onnxruntime` for CPU efficiency).
 - **Vector Storage:** `pgvector` extension in PostgreSQL.
 - **Granularity:** We embed **individual reviews** rather than just hotel descriptions to capture specific details (e.g., "fast wifi for Skype").
 - **Pipeline Scripts (`rag/pipeline/`):**
@@ -152,10 +152,10 @@ graph TD
 ## 9. Technical Stack Summary
 - **Languages:** Python 3.12, SQL.
 - **Database:** PostgreSQL + `pgvector` (Supabase).
-- **ML Models:** `all-MiniLM-L6-v2` (Embeddings), `Llama 3.3-70b` (Reasoning).
+- **ML Models:** `Xenova/all-MiniLM-L6-v2` (Embeddings), `Xenova/ms-marco-MiniLM-L-6-v2` (Reranking via ONNX), `Llama 3.3-70b` (Reasoning).
 - **Libraries:**
     - `psycopg2`: Secure parameterized database connection.
-    - `sentence-transformers`: Vector generation.
+    - `onnxruntime` & `optimum`: High-performance, lightweight vector generation without PyTorch overhead.
     - `vaderSentiment`: Sentiment analysis.
     - `spacy`: Entity recognition for city extraction.
     - `groq`: LLM API orchestration.
