@@ -30,7 +30,12 @@ class HybridRetriever:
     def __init__(self):
         self.model = get_model()
         self.reranker = get_reranker()
-        self.nlp = spacy.load("en_core_web_sm")
+        try:
+            self.nlp = spacy.load("en_core_web_sm")
+        except OSError:
+            import spacy.cli
+            spacy.cli.download("en_core_web_sm")
+            self.nlp = spacy.load("en_core_web_sm")
         
         # Semantic Intent Data
         self.intent_map = {
