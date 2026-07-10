@@ -31,11 +31,11 @@ from typing import Optional
 
 class ChatRequest(BaseModel):
     message: str
-    user_id: str
+    user_id: Optional[str] = None
     chat_id: Optional[str] = None
 
 @app.post("/chat")
-async def chat(request: ChatRequest):
+def chat(request: ChatRequest):
     print("req received")
     try:
         if not request.message:
