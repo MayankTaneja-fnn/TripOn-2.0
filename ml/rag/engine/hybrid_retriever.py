@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import psycopg2
 from psycopg2 import pool
 from rag.engine.models import get_model, get_reranker
-from sentence_transformers import util
+import numpy as np
 import json
 import spacy
 
@@ -62,7 +62,8 @@ class HybridRetriever:
     def _extract_intent(self, query):
         """Extracts intent tags and city using semantic similarity and spaCy NER."""
         query_embedding = self.model.encode(query, normalize_embeddings=True)
-        similarities = util.cos_sim(query_embedding, self.intent_embeddings)[0]
+        # Cosine similarity is the dot product of normalized embeddings
+        similarities = np.dot(self.intent_embeddings, query_embedding[0])
         
         extracted_tags = []
         for i, (tag, _) in enumerate(self.intent_map.items()):
