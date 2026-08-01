@@ -1,51 +1,7 @@
-// "use server";
-
-// import { createClient } from "@supabase/supabase-js";
-// import bcrypt from "bcryptjs";
-
-// const supabase = createClient(
-//   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-//   process.env.SUPABASE_SERVICE_ROLE_KEY!
-// );
-
-// export async function signup(formData: FormData) {
-//   const email = formData.get("email") as string;
-//   const password = formData.get("password") as string;
-//   const username = formData.get("username") as string;
-
-//   if (!email || !password || !username) {
-//     throw new Error("Missing required fields");
-//   }
-
-//   const hashedPassword = await bcrypt.hash(password, 10);
-
-//   const { error } = await supabase.from("users").insert([
-//     {
-//       email,
-//       password_hash: hashedPassword,
-//       username,
-//     },
-//   ]);
-
-//   if (error) {
-//     throw new Error(error.message);
-//   }
-
-//   return { success: true };
-// }
-
-// export async function login(formData: FormData) {
-//   const { signIn } = await import("@/lib/auth");
-//   await signIn("credentials", formData);
-// }
-
-
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcryptjs";
-import { signIn } from "@/lib/auth";
-import { AuthError } from "next-auth";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -57,32 +13,29 @@ export async function signup(formData: FormData) {
   const password = formData.get("password") as string;
   const username = formData.get("username") as string;
 
-  const hashed = await bcrypt.hash(password, 10);
+  if (!email || !password || !username) {
+    throw new Error("Missing required fields");
+  }
 
-  const { error } = await supabase.from("users").insert({
-    email,
-    username,
-    password_hash: hashed,
-  });
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  if (error) throw new Error(error.message);
+  const { error } = await supabase.from("users").insert([
+    {
+      email,
+      password_hash: hashedPassword,
+      username,
+    },
+  ]);
+
+  if (error) {
+    throw new Error(error.message);
+  }
 
   return { success: true };
 }
 
 export async function login(formData: FormData) {
-  try {
-    await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
-      redirectTo: "/",
-    });
-  } catch (e) {
-    if (e instanceof AuthError) {
-      return {
-        error: "Invalid email or password",
-      };
-    }
-    throw e;
-  }
+  const { signIn } = await import("@/lib/auth");
+  await signIn("credentials", formData);
 }
+
