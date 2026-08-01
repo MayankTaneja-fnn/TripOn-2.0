@@ -138,7 +138,7 @@ class HybridRetriever:
             rerank_map = {}
             for row in review_results:
                 h_id = row[0]
-                sem_sim = float(row[2])
+                sem_sim = float(row[2] or 0.0)
                 if h_id not in rerank_map or sem_sim > rerank_map[h_id]:
                     rerank_map[h_id] = sem_sim
             
@@ -179,10 +179,10 @@ class HybridRetriever:
             
             # Aspect Match Score: normalized to 0-1
             aspects = {'Cleanliness': clean, 'Service': service, 'Food': food, 'Wifi': wifi, 'Location': loc, 'Noise': noise, 'Safety': safety}
-            aspect_match = sum(float(aspects.get(k, 5.0))/10.0 * base_weights[k] for k in base_weights)
+            aspect_match = sum(float(aspects.get(k) or 5.0)/10.0 * base_weights[k] for k in base_weights)
             
             # Recency Score: decays over time (1 year = 0 score)
-            recency_score = max(0, 1 - (float(recency) / 12.0))
+            recency_score = max(0, 1 - (float(recency or 0.0) / 12.0))
             
             # Sentiment boost (map -1..1 to 0..1)
             safe_sentiment = float(avg_sentiment) if avg_sentiment is not None else 0.0
@@ -193,9 +193,9 @@ class HybridRetriever:
                 0.40 * rerank_score +
                 0.20 * sentiment_boost +
                 0.15 * aspect_match +
-                0.10 * (float(trust) / 10.0) +
+                0.10 * (float(trust or 0.0) / 10.0) +
                 0.10 * recency_score +
-                0.05 * (float(rating) / 5.0)
+                0.05 * (float(rating or 0.0) / 5.0)
             )
             
             reasoning = f"Ranked based on semantic relevance, sentiment, and matched aspect criteria."

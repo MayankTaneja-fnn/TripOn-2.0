@@ -80,17 +80,17 @@ Reviews:
                 return {
                     "hotel_name": hotel_name,
                     "metrics": {
-                        "rating": float(rating),
-                        "trust_score": float(trust),
-                        "cleanliness_score": float(aspects[0]),
-                        "service_score": float(aspects[1]),
-                        "food_score": float(aspects[2]),
-                        "wifi_score": float(aspects[3]),
-                        "location_score": float(aspects[4]),
-                        "noise_score": float(aspects[5]),
-                        "safety_score": float(aspects[6])
+                        "rating": float(rating or 0.0),
+                        "trust_score": float(trust or 0.0),
+                        "cleanliness_score": float(aspects[0] or 0.0),
+                        "service_score": float(aspects[1] or 0.0),
+                        "food_score": float(aspects[2] or 0.0),
+                        "wifi_score": float(aspects[3] or 0.0),
+                        "location_score": float(aspects[4] or 0.0),
+                        "noise_score": float(aspects[5] or 0.0),
+                        "safety_score": float(aspects[6] or 0.0)
                     },
-                    "drawbacks": [aspect_names[i] for i, s in enumerate(aspects) if s < 6.0]
+                    "drawbacks": [aspect_names[i] for i, s in enumerate(aspects) if s is not None and s < 6.0]
                 }
         finally:
             self._put_conn(conn)
@@ -117,9 +117,9 @@ Reviews:
                 
                 breakdown = {
                     "hotel_name": hotel_name,
-                    "trust_score": float(trust),
-                    "based_on_reviews": int(count),
-                    "aspect_scores": {aspect_names[i]: float(aspects[i]) for i in range(len(aspect_names))},
+                    "trust_score": float(trust or 0.0),
+                    "based_on_reviews": int(count or 0),
+                    "aspect_scores": {aspect_names[i]: float(aspects[i] or 0.0) for i in range(len(aspect_names))},
                     "transparency_note": f"The Trust Score of {trust} is computed based on analysis of {count} reviews, weighing aspect consistency and sentiment distribution."
                 }
                 return breakdown
@@ -172,11 +172,11 @@ Reviews:
                     aspect_names = ['Cleanliness', 'Service', 'Food', 'Wifi', 'Location', 'Noise', 'Safety']
                     
                     # Construct Dynamic Metrics
-                    metrics = {"rating": float(rating), "trust_score": float(trust)}
+                    metrics = {"rating": float(rating or 0.0), "trust_score": float(trust or 0.0)}
                     if tags:
                         for tag in tags:
                             for idx in TAG_TO_ASPECT_INDICES.get(tag, []):
-                                metrics[aspect_names[idx].lower() + "_score"] = float(aspects[idx])
+                                metrics[aspect_names[idx].lower() + "_score"] = float(aspects[idx] or 0.0)
 
                     # 2. Fetch boosted supporting reviews with parameterized SQL
                     params = [h_id]
@@ -213,11 +213,11 @@ Reviews:
                     evidence_packet["recommendations"].append({
                         "hotel_id": h_id,
                         "hotel_name": hotel_name,
-                        "score": round(float(score), 2),
+                        "score": round(float(score or 0.0), 2),
                         "metrics": metrics,
                         "reasoning": reasoning,
                         "evidence": raw_reviews, # Will be replaced below
-                        "drawbacks": [aspect_names[i] for i, s in enumerate(aspects) if s < 6.0]
+                        "drawbacks": [aspect_names[i] for i, s in enumerate(aspects) if s is not None and s < 6.0]
                     })
         finally:
             self._put_conn(conn)
