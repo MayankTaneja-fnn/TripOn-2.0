@@ -5,10 +5,13 @@ import { signup } from "@/app/actions/auth";
 import Link from "next/link";
 import { User, Mail, Lock, Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,7 +19,10 @@ export default function SignupForm() {
     setError("");
     const formData = new FormData(e.currentTarget);
     try {
-      await signup(formData);
+      const result = await signup(formData);
+      if (result.success) {
+        router.push("/login");
+      }
     } catch (err) {
       setError("Oops! We couldn't connect. Please try again soon.");
     } finally {

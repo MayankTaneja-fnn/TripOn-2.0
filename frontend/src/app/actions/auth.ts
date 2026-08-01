@@ -36,6 +36,7 @@ export async function signup(formData: FormData) {
 
 export async function login(formData: FormData) {
   const { signIn } = await import("@/lib/auth");
+  formData.append("redirectTo", "/");
   await signIn("credentials", formData);
 }
 
