@@ -65,7 +65,7 @@ IF YOU USE BULLET POINTS OR LIST HOTEL NAMES, YOU WILL BE PENALIZED."""}
         try:
             chat_completion = self.client.chat.completions.create(
                 messages=messages,
-                model="llama-3.3-70b-versatile",
+                model="openai/gpt-oss-120b",
             )
             response = chat_completion.choices[0].message.content
             
@@ -91,7 +91,7 @@ IF YOU USE BULLET POINTS OR LIST HOTEL NAMES, YOU WILL BE PENALIZED."""}
         if is_new_chat:
             try:
                 title_res = self.client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="openai/gpt-oss-120b",
                     messages=[{"role": "user", "content": f"Generate a short, maximum 50-character relevant tag or title for this travel query: '{user_query}'. Return ONLY the tag string, no quotes, no extra text."}],
                     temperature=0.3
                 )

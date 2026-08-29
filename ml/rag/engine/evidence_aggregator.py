@@ -46,7 +46,7 @@ Reviews:
                 prompt += f"- {h}: {' | '.join(revs)}\n"
                 
             res = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
+                model="openai/gpt-oss-120b",
                 messages=[
                     {"role": "system", "content": "You are a helpful JSON-only API that extracts positive quotes. Output valid JSON."},
                     {"role": "user", "content": prompt}

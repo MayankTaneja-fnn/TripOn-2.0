@@ -66,7 +66,7 @@ To allow "meaning-based" search, we convert text into numerical vectors.
 ### B. Hybrid Retrieval, Ranking, & Chat Assistant
 This is the "Brain" of the system.
 
-- **LLM:** `llama-3.3-70b-versatile` (via **Groq API**).
+- **LLM:** `openai/gpt-oss-120b` (via **Groq API**).
 - **Engine Modules (`rag/engine/`):**
     - `chat_assistant.py`: Orchestrates the request, optimizes evidence packets for token efficiency, and manages chat history.
     - `hybrid_retriever.py`: 

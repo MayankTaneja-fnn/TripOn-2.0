@@ -63,7 +63,7 @@ def generate_professional_summary(hotel_data, reviews):
                 {"role": "system", "content": "You are a professional travel data analyst. Provide concise, objective, and structured summaries."},
                 {"role": "user", "content": prompt}
             ],
-            model="llama-3.3-70b-versatile",
+            model="openai/gpt-oss-120b",
             temperature=0.3
         )
         return completion.choices[0].message.content
